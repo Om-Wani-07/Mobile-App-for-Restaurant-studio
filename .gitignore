@@ -1,0 +1,8 @@
+remix_-indian-restaurant-mobile-app/node_modules/
+remix_-indian-restaurant-mobile-app/dist/
+remix_-indian-restaurant-mobile-app/build/
+remix_-indian-restaurant-mobile-app/coverage/
+.DS_Store
+*.log
+.env*
+!remix_-indian-restaurant-mobile-app/.env.example

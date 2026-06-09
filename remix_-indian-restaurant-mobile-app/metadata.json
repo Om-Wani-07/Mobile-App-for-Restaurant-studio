@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Indian Restaurant Mobile App",
+  "description": "A premium, mobile-inspired Indian restaurant app featuring real-time menu filtering, interactive cart orders, special request table booking, reviews, and a customer loyalty points engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

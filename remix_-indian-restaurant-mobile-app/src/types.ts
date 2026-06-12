@@ -98,5 +98,4 @@ export type Screen =
   | { type: "OrderTracking"; orderId: number }
   | { type: "Feedback"; orderId: number }
   | { type: "LoyaltyDashboard" }
-  | { type: "OwnerConsole" }
   | { type: "AISommelier" };

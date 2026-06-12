@@ -205,7 +205,7 @@ export default function MobileSimulator({
           {children}
 
           {/* Persistent AI Saffron Sommelier FAB */}
-          {currentScreen.type !== "AISommelier" && currentScreen.type !== "OwnerConsole" && (
+          {currentScreen.type !== "AISommelier" && (
             <motion.button
               id="sommelier-fab"
               onClick={() => onNavigate({ type: "AISommelier" })}

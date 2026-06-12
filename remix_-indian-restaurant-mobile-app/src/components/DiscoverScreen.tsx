@@ -264,13 +264,42 @@ export default function DiscoverScreen({
       {/* Chef's Curated Masterpiece Specials (Horizontal Slider) */}
       <div className="flex flex-col gap-3 mt-1 shrink-0">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <Flame size={17} className="text-amber-600 fill-amber-500 animate-pulse" />
+          <div className="flex items-center gap-2">
+            {/* Custom Indian Diya (traditional oil lamp) SVG */}
+            <svg className="w-8 h-8 shrink-0 select-none -mt-0.5" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 12 C55 28, 64 40, 50 54 C36 40, 45 28, 50 12 Z" fill="url(#flameGrad)" />
+              <path d="M50 22 C52 31, 58 38, 50 46 C42 38, 48 31, 50 22 Z" fill="#FFF2a3" />
+              <path d="M50 30 C51 36, 54 40, 50 43 C46 40, 49 36, 50 30 Z" fill="#FF5722" />
+              <path d="M12 55 C12 76, 88 76, 88 55 C88 55, 76 57, 50 57 C24 57, 12 55, 12 55 Z" fill="url(#diyaGoldGrad)" stroke="#5A3A1A" strokeWidth="1.5" />
+              <path d="M38 71 C38 78, 62 78, 62 71 Z" fill="#5A3A1A" />
+              <ellipse cx="50" cy="74" rx="22" ry="4.5" fill="url(#diyaGoldGrad)" stroke="#5A3A1A" strokeWidth="1" />
+              <path d="M22 61 C32 66, 68 66, 78 61" stroke="#F9DF95" strokeWidth="2" strokeLinecap="round" />
+              <circle cx="50" cy="64" r="2.5" fill="#F9DF95" />
+              <circle cx="36" cy="62.5" r="2" fill="#F9DF95" />
+              <circle cx="64" cy="62.5" r="2" fill="#F9DF95" />
+              <defs>
+                <radialGradient id="flameGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#FFFBE6" />
+                  <stop offset="25%" stopColor="#FFD54F" />
+                  <stop offset="65%" stopColor="#FF5722" />
+                  <stop offset="100%" stopColor="#E64A19" stopOpacity="0" />
+                </radialGradient>
+                <linearGradient id="diyaGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#C89D5E" />
+                  <stop offset="45%" stopColor="#F3DCA2" />
+                  <stop offset="100%" stopColor="#8C5D3A" />
+                </linearGradient>
+              </defs>
+            </svg>
             <h2 
-              className="text-[17px] font-bold text-[#2C2321] tracking-wide"
+              className="text-[17px] font-bold text-[#0F1E36] tracking-wide flex items-center gap-1.5"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Chef&apos;s Signature Specials
+              <span>Chef&apos;s Signature Specials</span>
+              <svg className="w-3.5 h-3.5 text-[#8C6239] shrink-0 opacity-90" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 2v5c0 1.1-.9 2-2 2H6.5v11H5v-11H3.5c-1.1 0-2-.9-2-2V2h1v5c0 .55.45 1 1 1h.5V2h1v6h.5V2h1v6h.5c.55 0 1-.45 1-1V2h1z" />
+                <path d="M19 2v10h-1.5v7H16v-7c0-2.5 1.5-4.5 3-7.5l.5-1.5h1z" />
+              </svg>
             </h2>
           </div>
         </div>
@@ -359,11 +388,14 @@ export default function DiscoverScreen({
       {/* Restaurant List Section */}
       <div className="flex flex-col gap-3">
         <h2 
-          className="text-[17px] font-bold text-[#2C2321] tracking-wide flex items-center gap-1.5"
+          className="text-[17px] font-bold text-[#0F1E36] tracking-wide flex items-center gap-1.5"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          <UtensilsCrossed size={16} className="text-amber-600" />
-          <span>Gourmet Kitchen spots</span>
+          <span>Chef&apos;s Gourmet Kitchen spots</span>
+          <svg className="w-3.5 h-3.5 text-[#8C6239] shrink-0 opacity-90" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 2v5c0 1.1-.9 2-2 2H6.5v11H5v-11H3.5c-1.1 0-2-.9-2-2V2h1v5c0 .55.45 1 1 1h.5V2h1v6h.5V2h1v6h.5c.55 0 1-.45 1-1V2h1z" />
+            <path d="M19 2v10h-1.5v7H16v-7c0-2.5 1.5-4.5 3-7.5l.5-1.5h1z" />
+          </svg>
         </h2>
 
         {filteredRestaurants.length === 0 ? (

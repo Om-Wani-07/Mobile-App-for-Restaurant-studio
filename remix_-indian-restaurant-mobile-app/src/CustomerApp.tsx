@@ -17,6 +17,9 @@ import OrderScreens from "./components/OrderScreens";
 import FeedbackScreen from "./components/FeedbackScreen";
 import AISommelier from "./components/AISommelier";
 import { useOfflineSync } from "./hooks/useOfflineSync";
+import { useBookings } from "./hooks/useBookings";
+import { useOrders } from "./hooks/useOrders";
+import { useCartState } from "./hooks/useCartState";
 
 export default function CustomerApp() {
   // --- Persistent Local Database State ---
@@ -72,15 +75,21 @@ export default function CustomerApp() {
     }
   });
 
-  const [bookings, setBookings] = useState<TableBooking[]>(() => {
-    const saved = localStorage.getItem("rsl_bookings");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const [orders, setOrders] = useState<FoodOrder[]>(() => {
-    const saved = localStorage.getItem("rsl_orders");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { bookings, setBookings, handleMakeBooking, handleCancelBooking } = useBookings();
+  const { orders, setOrders } = useOrders();
+  const {
+    cart,
+    setCart,
+    selectedReward,
+    setSelectedReward,
+    getCartRestaurant,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleClearCart,
+    handleClearReward,
+    handleSelectReward,
+    cartBadgeCount
+  } = useCartState(menuItems, restaurants);
 
   const [userLoyalty, setUserLoyalty] = useState<UserLoyalty>(() => {
     const saved = localStorage.getItem("rsl_loyalty");
@@ -90,8 +99,6 @@ export default function CustomerApp() {
   // --- Session Ephemeral State ---
   const [currentScreen, setCurrentScreen] = useState<Screen>({ type: "Discover" });
   const [navigationHistory, setNavigationHistory] = useState<Screen[]>([{ type: "Discover" }]);
-  const [cart, setCart] = useState<{ [itemId: number]: number }>({});
-  const [selectedReward, setSelectedReward] = useState<LoyaltyReward | null>(null);
 
   const { isOffline, showSyncToast, lastSyncCount, toggleOffline } = useOfflineSync(
     orders,
@@ -100,7 +107,7 @@ export default function CustomerApp() {
     setBookings
   );
 
-  // Synchronize state changes made in other tabs (e.g. OwnerConsole updates pricing/reviews/bookings)
+  // Synchronize state changes made in other tabs (e.g. OwnerConsole updates pricing/reviews/bookings/orders)
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
       try {
@@ -109,12 +116,6 @@ export default function CustomerApp() {
         }
         if (e.key === "rsl_restaurants" && e.newValue) {
           setRestaurants(JSON.parse(e.newValue));
-        }
-        if (e.key === "rsl_bookings" && e.newValue) {
-          setBookings(JSON.parse(e.newValue));
-        }
-        if (e.key === "rsl_orders" && e.newValue) {
-          setOrders(JSON.parse(e.newValue));
         }
         if (e.key === "rsl_reviews" && e.newValue) {
           setReviews(JSON.parse(e.newValue));
@@ -143,14 +144,6 @@ export default function CustomerApp() {
     localStorage.setItem("rsl_reviews", JSON.stringify(reviews));
   }, [reviews]);
 
-  useEffect(() => {
-    localStorage.setItem("rsl_bookings", JSON.stringify(bookings));
-  }, [bookings]);
-
-  useEffect(() => {
-    localStorage.setItem("rsl_orders", JSON.stringify(orders));
-  }, [orders]);
-
   // --- Navigation Core Handlers ---
   const handleNavigateTo = (screen: Screen) => {
     setCurrentScreen(screen);
@@ -167,98 +160,6 @@ export default function CustomerApp() {
       setCurrentScreen(rootScreen);
       setNavigationHistory([rootScreen]);
     }
-  };
-
-  // --- Cart Core Rules Handler ---
-  const getCartRestaurant = (): Restaurant | null => {
-    const itemIds = Object.keys(cart).map(id => parseInt(id)).filter(id => cart[id] > 0);
-    if (itemIds.length === 0) return null;
-    const firstDishId = itemIds[0];
-    const firstDish = menuItems.find(m => m.id === firstDishId);
-    if (!firstDish) return null;
-    return restaurants.find(r => r.id === firstDish.restaurantId) || null;
-  };
-
-  const handleAddToCart = (item: MenuItem) => {
-    const cartRest = getCartRestaurant();
-    if (cartRest !== null && cartRest.id !== item.restaurantId) {
-      const confirmReset = window.confirm(
-        `Your cart already contains dishes from "${cartRest.name}". Discard those dishes and start a new order from "${
-          restaurants.find(r => r.id === item.restaurantId)?.name || "this spot"
-        }"?`
-      );
-      if (!confirmReset) return;
-      setCart({ [item.id]: 1 });
-      setSelectedReward(null);
-      return;
-    }
-    setCart(prev => ({
-      ...prev,
-      [item.id]: (prev[item.id] || 0) + 1
-    }));
-  };
-
-  const handleRemoveFromCart = (item: MenuItem) => {
-    setCart(prev => {
-      const updated = { ...prev };
-      if (!updated[item.id]) return prev;
-      updated[item.id] -= 1;
-      if (updated[item.id] <= 0) {
-        delete updated[item.id];
-      }
-      return updated;
-    });
-  };
-
-  const handleClearCart = () => {
-    setCart({});
-    setSelectedReward(null);
-  };
-
-  const handleClearReward = () => setSelectedReward(null);
-
-  const handleSelectReward = (reward: LoyaltyReward): boolean => {
-    if (userLoyalty.pointsBalance >= reward.pointsCost) {
-      setSelectedReward(reward);
-      return true;
-    }
-    return false;
-  };
-
-  // --- Reservation Booking Handler ---
-  const handleMakeBooking = (
-    restaurantId: number,
-    restaurantName: string,
-    guestName: string,
-    guestPhone: string,
-    date: string,
-    time: string,
-    numGuests: number,
-    seatingArea: string,
-    specialRequest: string
-  ) => {
-    const newBooking: TableBooking = {
-      id: Math.floor(Math.random() * 9000) + 1000,
-      restaurantId,
-      restaurantName,
-      guestName,
-      guestPhone,
-      date,
-      time,
-      numGuests,
-      seatingArea,
-      specialRequest,
-      status: "Pending",
-      timestamp: Date.now(),
-      isOfflinePending: isOffline ? true : undefined
-    };
-    setBookings(prev => [newBooking, ...prev]);
-  };
-
-  const handleCancelBooking = (bookingId: number) => {
-    setBookings(prev => 
-      prev.map(b => b.id === bookingId ? { ...b, status: "Cancelled" as const } : b)
-    );
   };
 
   // --- Checkout Order Placed Handler ---
@@ -363,7 +264,6 @@ export default function CustomerApp() {
   };
 
   const signatureChefSpecials = menuItems.filter(item => item.isSpecial);
-  const cartBadgeCount = (Object.values(cart) as number[]).reduce((a, b) => a + b, 0);
 
   return (
     <MobileSimulator

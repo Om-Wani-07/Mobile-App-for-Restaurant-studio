@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { Restaurant, MenuItem, FoodOrder, TableBooking, Review } from "./types";
 import { initialRestaurants, initialMenuItems, initialReviews } from "./data";
+import { useBookings } from "./hooks/useBookings";
+import { useOrders } from "./hooks/useOrders";
 
 export default function OwnerApp() {
   // --- Persistent Local Database State ---
@@ -33,15 +35,8 @@ export default function OwnerApp() {
     return saved ? JSON.parse(saved) : initialMenuItems;
   });
 
-  const [bookings, setBookings] = useState<TableBooking[]>(() => {
-    const saved = localStorage.getItem("rsl_bookings");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const [orders, setOrders] = useState<FoodOrder[]>(() => {
-    const saved = localStorage.getItem("rsl_orders");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { bookings, setBookings, handleConfirmBooking: baseConfirmBooking, handleUpdateBookingStatus } = useBookings();
+  const { orders, setOrders, handleUpdateOrderStatus } = useOrders();
 
   const [reviews, setReviews] = useState<Review[]>(() => {
     const saved = localStorage.getItem("rsl_reviews");
@@ -73,14 +68,6 @@ export default function OwnerApp() {
   }, [menuItems]);
 
   useEffect(() => {
-    localStorage.setItem("rsl_bookings", JSON.stringify(bookings));
-  }, [bookings]);
-
-  useEffect(() => {
-    localStorage.setItem("rsl_orders", JSON.stringify(orders));
-  }, [orders]);
-
-  useEffect(() => {
     localStorage.setItem("rsl_reviews", JSON.stringify(reviews));
   }, [reviews]);
 
@@ -93,12 +80,6 @@ export default function OwnerApp() {
         }
         if (e.key === "rsl_restaurants" && e.newValue) {
           setRestaurants(JSON.parse(e.newValue));
-        }
-        if (e.key === "rsl_bookings" && e.newValue) {
-          setBookings(JSON.parse(e.newValue));
-        }
-        if (e.key === "rsl_orders" && e.newValue) {
-          setOrders(JSON.parse(e.newValue));
         }
         if (e.key === "rsl_reviews" && e.newValue) {
           setReviews(JSON.parse(e.newValue));
@@ -139,23 +120,9 @@ export default function OwnerApp() {
     }
   };
 
-  const handleUpdateOrderStatus = (orderId: number, status: FoodOrder["status"]) => {
-    setOrders(prev => 
-      prev.map(o => o.id === orderId ? { ...o, status } : o)
-    );
-  };
-
   const handleConfirmBooking = (bookingId: number, tableNumber: string) => {
-    setBookings(prev => 
-      prev.map(b => b.id === bookingId ? { ...b, status: "Confirmed", tableNumber } : b)
-    );
+    baseConfirmBooking(bookingId, tableNumber);
     setAssigningBookingId(null);
-  };
-
-  const handleUpdateBookingStatus = (bookingId: number, status: TableBooking["status"]) => {
-    setBookings(prev => 
-      prev.map(b => b.id === bookingId ? { ...b, status } : b)
-    );
   };
 
   const handleSendChefReply = (reviewId: number) => {

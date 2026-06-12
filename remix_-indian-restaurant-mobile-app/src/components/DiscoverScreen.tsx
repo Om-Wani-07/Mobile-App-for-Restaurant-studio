@@ -265,8 +265,11 @@ export default function DiscoverScreen({
       <div className="flex flex-col gap-3 mt-1 shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <Flame size={16} className="text-amber-600 fill-amber-500" />
-            <h2 className="text-[14px] font-display font-bold text-gray-900">
+            <Flame size={17} className="text-amber-600 fill-amber-500 animate-pulse" />
+            <h2 
+              className="text-[17px] font-bold text-[#2C2321] tracking-wide"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
               Chef&apos;s Signature Specials
             </h2>
           </div>
@@ -355,8 +358,11 @@ export default function DiscoverScreen({
 
       {/* Restaurant List Section */}
       <div className="flex flex-col gap-3">
-        <h2 className="text-[14px] font-display font-bold text-gray-900 flex items-center gap-1.5">
-          <UtensilsCrossed size={14} className="text-amber-600" />
+        <h2 
+          className="text-[17px] font-bold text-[#2C2321] tracking-wide flex items-center gap-1.5"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          <UtensilsCrossed size={16} className="text-amber-600" />
           <span>Gourmet Kitchen spots</span>
         </h2>
 
@@ -429,8 +435,11 @@ export default function DiscoverScreen({
 
       {/* Community review activity feed highlight */}
       <div className="bg-amber-50/50 rounded-2xl p-4 border border-amber-100/50 flex flex-col gap-2.5">
-        <h3 className="text-xs font-bold text-amber-800 flex items-center gap-1.5">
-          <User size={13} className="text-amber-700" />
+        <h3 
+          className="text-[13px] font-bold text-amber-900 tracking-wide flex items-center gap-1.5"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          <User size={14} className="text-amber-700" />
           <span>Local Foodie Talk</span>
         </h3>
         

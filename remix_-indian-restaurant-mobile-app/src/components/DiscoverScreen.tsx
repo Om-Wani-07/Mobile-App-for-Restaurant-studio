@@ -296,9 +296,11 @@ export default function DiscoverScreen({
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               <span>Chef&apos;s Signature Specials</span>
-              <svg className="w-[18px] h-[18px] text-[#8C6239] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8.1 2h-.8c-.3 0-.5.2-.5.5v5.5c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V2.5c0-.3-.2-.5-.5-.5h-.8c-.3 0-.5.2-.5.5v5.5c0 2.2 1.6 4 3.8 4.4V21.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V12.4c2.2-.4 3.8-2.2 3.8-4.4V2.5c0-.3-.2-.5-.5-.5z" />
-                <path d="M19.9 2h-1c-2.2 0-4 1.8-4 4v7c0 .6.4 1 1 1h1v7.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V2.5c0-.3-.2-.5-.5-.5z" />
+              <svg className="w-[22px] h-[22px] text-[#8C6239] shrink-0 self-center ml-0.5" viewBox="0 0 100 100" fill="currentColor">
+                {/* Fork */}
+                <path d="M 28 50 L 27 75 C 26 81, 28 86, 31 86 C 34 86, 36 81, 35 75 L 34 50 C 34 45, 42 44, 42 38 L 42 16 C 42 15, 40 15, 40 16 L 40 33 L 37 33 L 37 16 C 37 15, 35 15, 35 16 L 35 33 L 32 33 L 32 16 C 32 15, 30 15, 30 16 L 30 33 L 27 33 L 27 16 C 27 15, 25 15, 25 16 L 25 38 C 25 44, 28 45, 28 50 Z" />
+                {/* Knife */}
+                <path d="M 68 50 L 67 75 C 66 81, 68 86, 71 86 C 74 86, 76 81, 75 75 L 74 50 C 74 46, 75 42, 75 35 C 75 25, 74 18, 71 16 C 70 15, 68 15, 68 17 C 68 22, 67 30, 67 38 C 67 44, 68 46, 68 50 Z" />
               </svg>
             </h2>
           </div>
@@ -392,9 +394,11 @@ export default function DiscoverScreen({
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           <span>Chef&apos;s Gourmet Kitchen spots</span>
-          <svg className="w-[18px] h-[18px] text-[#8C6239] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8.1 2h-.8c-.3 0-.5.2-.5.5v5.5c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V2.5c0-.3-.2-.5-.5-.5h-.8c-.3 0-.5.2-.5.5v5.5c0 2.2 1.6 4 3.8 4.4V21.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V12.4c2.2-.4 3.8-2.2 3.8-4.4V2.5c0-.3-.2-.5-.5-.5z" />
-            <path d="M19.9 2h-1c-2.2 0-4 1.8-4 4v7c0 .6.4 1 1 1h1v7.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V2.5c0-.3-.2-.5-.5-.5z" />
+          <svg className="w-[22px] h-[22px] text-[#8C6239] shrink-0 self-center ml-0.5" viewBox="0 0 100 100" fill="currentColor">
+            {/* Fork */}
+            <path d="M 28 50 L 27 75 C 26 81, 28 86, 31 86 C 34 86, 36 81, 35 75 L 34 50 C 34 45, 42 44, 42 38 L 42 16 C 42 15, 40 15, 40 16 L 40 33 L 37 33 L 37 16 C 37 15, 35 15, 35 16 L 35 33 L 32 33 L 32 16 C 32 15, 30 15, 30 16 L 30 33 L 27 33 L 27 16 C 27 15, 25 15, 25 16 L 25 38 C 25 44, 28 45, 28 50 Z" />
+            {/* Knife */}
+            <path d="M 68 50 L 67 75 C 66 81, 68 86, 71 86 C 74 86, 76 81, 75 75 L 74 50 C 74 46, 75 42, 75 35 C 75 25, 74 18, 71 16 C 70 15, 68 15, 68 17 C 68 22, 67 30, 67 38 C 67 44, 68 46, 68 50 Z" />
           </svg>
         </h2>
 

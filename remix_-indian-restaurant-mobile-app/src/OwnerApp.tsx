@@ -230,37 +230,34 @@ export default function OwnerApp() {
       className="min-h-screen bg-[#FAF7F2] text-[#2C2321] flex flex-col font-sans relative overflow-x-hidden selection:bg-[#C84B31] selection:text-white"
       style={{ fontFamily: "'Outfit', sans-serif" }}
     >
-      {/* Royal Gold Header Trim Line */}
-      <div className="h-1.5 bg-gradient-to-r from-[#C84B31] via-[#C89D5E] to-[#13213C] w-full" />
-
-      {/* Top Header: Premium Royal Indigo/Navy Backdrop */}
-      <header className="bg-[#13213C] border-b border-[#C89D5E]/30 px-6 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-xl select-none shrink-0 relative z-30">
+      {/* Top Header: Modern Glassmorphic Heritage Aesthetic */}
+      <header className="bg-white/90 backdrop-blur-md border-b border-[#E8DCC4]/50 px-6 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[0_2px_15px_rgba(44,35,33,0.02)] select-none shrink-0 relative z-30">
         <div className="flex items-center gap-3.5">
-          <div className="bg-gradient-to-tr from-[#C84B31] to-[#C89D5E] p-2.5 rounded-2xl shadow-[0_4px_15px_rgba(200,75,49,0.3)] text-white">
-            <ChefHat size={28} />
+          <div className="bg-[#FAF7F2] border border-[#E8DCC4]/80 p-2.5 rounded-2xl shadow-sm text-[#C84B31]">
+            <ChefHat size={26} />
           </div>
           <div className="flex flex-col">
             <h1 
-              className="text-[11px] uppercase font-bold text-[#C89D5E] tracking-[0.25em] leading-none"
-              style={{ fontFamily: "'Cinzel Decorative', serif" }}
+              className="text-[9px] uppercase font-black text-[#C89D5E] tracking-[0.2em] leading-none"
+              style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               MAHARAJA ROYAL DARBAR
             </h1>
-            <span className="text-xl font-bold tracking-tight text-white flex items-center gap-2 mt-0.5">
+            <span className="text-lg font-black tracking-tight text-[#2C2321] flex items-center gap-2 mt-0.5">
               Imperial Backoffice Console
-              <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             </span>
           </div>
         </div>
 
-        {/* Dashboard Tabs: Styled like high-end restaurant menu dividers */}
-        <div className="flex bg-[#0C1527] p-1.5 rounded-2xl border border-white/5 gap-1">
+        {/* Dashboard Tabs: Modern Sleek Pill Selector */}
+        <div className="flex bg-[#FAF7F2]/90 p-1.5 rounded-2xl border border-[#E8DCC4]/60 gap-1 shadow-inner">
           <button
             onClick={() => setActiveDashboardTab("command")}
-            className={`flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeDashboardTab === "command"
-                ? "bg-gradient-to-r from-[#C84B31] to-[#C89D5E] text-white shadow-lg"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white text-[#C84B31] shadow-sm border border-[#E8DCC4]/30"
+                : "text-slate-500 hover:text-slate-900"
             }`}
           >
             <Utensils size={14} />
@@ -268,10 +265,10 @@ export default function OwnerApp() {
           </button>
           <button
             onClick={() => setActiveDashboardTab("seating")}
-            className={`flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeDashboardTab === "seating"
-                ? "bg-gradient-to-r from-[#C84B31] to-[#C89D5E] text-white shadow-lg"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white text-[#C84B31] shadow-sm border border-[#E8DCC4]/30"
+                : "text-slate-500 hover:text-slate-900"
             }`}
           >
             <CalendarCheck size={14} />
@@ -279,10 +276,10 @@ export default function OwnerApp() {
           </button>
           <button
             onClick={() => setActiveDashboardTab("reports")}
-            className={`flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeDashboardTab === "reports"
-                ? "bg-gradient-to-r from-[#C84B31] to-[#C89D5E] text-white shadow-lg"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white text-[#C84B31] shadow-sm border border-[#E8DCC4]/30"
+                : "text-slate-500 hover:text-slate-900"
             }`}
           >
             <TrendingUp size={14} />
@@ -290,22 +287,22 @@ export default function OwnerApp() {
           </button>
           <button
             onClick={() => setActiveDashboardTab("ai_advisor")}
-            className={`flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeDashboardTab === "ai_advisor"
-                ? "bg-gradient-to-r from-[#C84B31] to-[#C89D5E] text-white shadow-lg"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white text-[#C84B31] shadow-sm border border-[#E8DCC4]/30"
+                : "text-slate-500 hover:text-slate-900"
             }`}
           >
-            <Sparkles size={14} className="text-amber-200 animate-pulse" />
+            <Sparkles size={14} className="text-[#C89D5E]" />
             <span>AI Advisor</span>
           </button>
         </div>
 
         <button 
           onClick={navigateToCustomer}
-          className="flex items-center gap-2 bg-gradient-to-r from-[#C84B31] to-[#B33E26] hover:from-[#B33E26] hover:to-[#9D321D] text-white font-bold text-xs px-4.5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer border border-[#C84B31]/30"
+          className="flex items-center gap-2 bg-white hover:bg-[#FAF7F2] text-[#C84B31] hover:text-[#B33E26] font-bold text-xs px-4.5 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer border border-[#E8DCC4]"
         >
-          <LogOut size={14} className="rotate-180 text-white/90" />
+          <LogOut size={14} className="rotate-180" />
           <span>Go to Customer App</span>
         </button>
       </header>

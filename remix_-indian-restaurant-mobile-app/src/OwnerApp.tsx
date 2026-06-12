@@ -79,6 +79,9 @@ export default function OwnerApp() {
   const [selectedTable, setSelectedTable] = useState("Table 1");
   const [vacantTableModalId, setVacantTableModalId] = useState<string | null>(null);
 
+  // Hover state for interactive Sales SVG Chart
+  const [hoveredPoint, setHoveredPoint] = useState<{ x: number, y: number, hour: string, amount: number, ordersCount: number } | null>(null);
+
   // Sync to local storage on changes
   useEffect(() => {
     localStorage.setItem("rsl_restaurants", JSON.stringify(restaurants));
@@ -1097,12 +1100,45 @@ export default function OwnerApp() {
                       <stop offset="100%" stopColor="#13213C" />
                     </linearGradient>
 
-                    <circle cx="10" cy="120" r="4.5" fill="#C84B31" stroke="white" strokeWidth="1.5" />
-                    <circle cx="100" cy="90" r="4.5" fill="#C89D5E" stroke="white" strokeWidth="1.5" />
-                    <circle cx="190" cy="125" r="4.5" fill="#C84B31" stroke="white" strokeWidth="1.5" />
-                    <circle cx="280" cy="40" r="4.5" fill="#C89D5E" stroke="white" strokeWidth="1.5" />
-                    <circle cx="370" cy="10" r="4.5" fill="#13213C" stroke="white" strokeWidth="1.5" />
-                    <circle cx="460" cy="30" r="4.5" fill="#C89D5E" stroke="white" strokeWidth="1.5" />
+                    {/* Dotted target baseline trend */}
+                    <path
+                      d="M 10 130 L 100 110 L 190 100 L 280 70 L 370 50 L 460 40"
+                      fill="none"
+                      stroke="#C89D5E"
+                      strokeWidth="1.5"
+                      strokeDasharray="3"
+                      opacity="0.65"
+                    />
+
+                    {/* Interactive segments trigger zones */}
+                    <rect x="0" y="0" width="55" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 10, y: 120, hour: "12:00 PM", amount: 1200, ordersCount: 3 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="55" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 100, y: 90, hour: "2:00 PM", amount: 2400, ordersCount: 6 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="145" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 190, y: 125, hour: "4:00 PM", amount: 950, ordersCount: 2 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="235" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 280, y: 40, hour: "6:00 PM", amount: 4800, ordersCount: 11 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="325" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 370, y: 10, hour: "8:00 PM", amount: 7200, ordersCount: 18 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="415" y="0" width="85" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 460, y: 30, hour: "10:00 PM", amount: 5900, ordersCount: 15 })} onMouseLeave={() => setHoveredPoint(null)} />
+
+                    {/* Data Circles */}
+                    <circle cx="10" cy="120" r={hoveredPoint?.hour === "12:00 PM" ? 7 : 4.5} fill="#C84B31" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="100" cy="90" r={hoveredPoint?.hour === "2:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="190" cy="125" r={hoveredPoint?.hour === "4:00 PM" ? 7 : 4.5} fill="#C84B31" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="280" cy="40" r={hoveredPoint?.hour === "6:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="370" cy="10" r={hoveredPoint?.hour === "8:00 PM" ? 7 : 4.5} fill="#13213C" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="460" cy="30" r={hoveredPoint?.hour === "10:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+
+                    {/* Hover Tooltip Render */}
+                    {hoveredPoint && (() => {
+                      const tooltipX = hoveredPoint.x < 65 ? 5 : hoveredPoint.x > 435 ? 385 : hoveredPoint.x - 55;
+                      const tooltipY = hoveredPoint.y - 50 < 5 ? 5 : hoveredPoint.y - 50;
+                      return (
+                        <g className="pointer-events-none animate-scale-up">
+                          <line x1={hoveredPoint.x} y1="0" x2={hoveredPoint.x} y2="140" stroke="#C84B31" strokeWidth="1" strokeDasharray="3" opacity="0.6" />
+                          <rect x={tooltipX} y={tooltipY} width="110" height="38" rx="8" fill="white" stroke="#E8DCC4" strokeWidth="1" />
+                          <text x={tooltipX + 55} y={tooltipY + 14} textAnchor="middle" fill="#2C2321" fontSize="9" fontWeight="bold" fontFamily="Outfit, sans-serif">{hoveredPoint.hour}</text>
+                          <text x={tooltipX + 55} y={tooltipY + 28} textAnchor="middle" fill="#C84B31" fontSize="9" fontWeight="bold" fontFamily="JetBrains Mono, monospace">₹{hoveredPoint.amount.toLocaleString("en-IN")}</text>
+                        </g>
+                      );
+                    })()}
                   </svg>
 
                   <div className="flex justify-between text-[9px] font-bold font-mono text-slate-500 px-1 border-t border-slate-200 pt-2 shrink-0">

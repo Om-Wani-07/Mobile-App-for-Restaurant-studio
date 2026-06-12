@@ -127,16 +127,20 @@ export default function DiscoverScreen({
   return (
     <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-5 select-none bg-slate-50 [scrollbar-width:none]">
       {/* Brand Elegant Greeting */}
-      <div className="flex flex-col gap-1 shrink-0">
-        <span className="text-xs font-mono tracking-wider uppercase text-amber-600 font-bold">
-          Fine Culinary Dining
-        </span>
-        <h1 className="text-2xl font-display font-extrabold text-gray-900 tracking-tight leading-none">
+      <div className="flex flex-col items-center justify-center text-center py-2 shrink-0 select-none">
+        <h1 
+          className="text-4xl font-extrabold tracking-wide uppercase bg-gradient-to-r from-[#C84B31] via-[#D4AF37] to-[#8C5D3A] bg-clip-text text-transparent drop-shadow-xs"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
           Royal India Spoon
         </h1>
-        <p className="text-xs text-gray-500">
-          Experience royal hospitality & imperial spice recipes
-        </p>
+        <div className="flex items-center gap-3 w-full max-w-[240px] mt-2 opacity-80">
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C89D5E]" />
+          <svg className="w-4.5 h-4.5 text-[#C89D5E] animate-pulse" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 0 1 2.5 6.5A10 10 0 0 1 12 15a10 10 0 0 1-2.5-6.5A10 10 0 0 1 12 2zm0 13a7 7 0 0 1 2 4.5A7 7 0 0 1 12 24a7 7 0 0 1-2-4.5A7 7 0 0 1 12 15zm-5-6a7 7 0 0 1 4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1-4.5 2A7 7 0 0 1 7 9.5zm10 0a7 7 0 0 1-4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1 4.5 2A7 7 0 0 1 17 9.5z" opacity="0.85" />
+          </svg>
+          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]" />
+        </div>
       </div>
 
       {/* Styled Interactive Search Bar */}

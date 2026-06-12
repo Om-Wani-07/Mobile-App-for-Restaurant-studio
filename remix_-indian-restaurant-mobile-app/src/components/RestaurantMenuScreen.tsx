@@ -252,7 +252,7 @@ export default function RestaurantMenuScreen({
                         isHighlighted 
                           ? "bg-amber-50/20 border-amber-500 ring-2 ring-amber-500/20 font-medium" 
                           : "bg-white border-gray-50"
-                      }`}
+                      } ${item.isAvailable === false ? "opacity-60 grayscale-[40%]" : ""}`}
                     >
                       {/* Left: Dish Image */}
                       {item.imageUrl && (
@@ -318,7 +318,11 @@ export default function RestaurantMenuScreen({
 
                       {/* Right: Plus Minus Controls */}
                       <div className="w-20 flex flex-col items-center justify-center shrink-0">
-                        {qtyInCart === 0 ? (
+                        {item.isAvailable === false ? (
+                          <div className="w-full bg-slate-100 text-slate-450 border border-slate-200 text-[10px] font-black py-1.5 rounded-xl text-center select-none tracking-wider font-mono">
+                            SOLD OUT
+                          </div>
+                        ) : qtyInCart === 0 ? (
                           <button
                             id={`add-to-cart-${item.id}`}
                             onClick={() => onAddToCart(item)}
@@ -390,6 +394,12 @@ export default function RestaurantMenuScreen({
                       <p className="text-[11px] text-gray-600 leading-relaxed font-normal mt-1">
                         &ldquo;{rev.comment}&rdquo;
                       </p>
+                      {rev.chefResponse && (
+                        <div className="mt-2 bg-amber-50 border border-amber-100 rounded-xl p-2.5 text-[10px] text-amber-800 leading-relaxed">
+                          <span className="font-extrabold block mb-0.5 uppercase tracking-wider font-mono text-[8px] text-amber-600">Chef&apos;s Response:</span>
+                          &ldquo;{rev.chefResponse}&rdquo;
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

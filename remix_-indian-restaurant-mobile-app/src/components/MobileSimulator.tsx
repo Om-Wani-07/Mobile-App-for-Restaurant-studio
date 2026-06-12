@@ -22,8 +22,6 @@ interface MobileSimulatorProps {
   cartCount: number;
   points: number;
   tier: string;
-  role: "customer" | "owner";
-  setRole: (role: "customer" | "owner") => void;
   isOffline: boolean;
   onToggleOffline: () => void;
   showSyncToast?: boolean;
@@ -37,8 +35,6 @@ export default function MobileSimulator({
   cartCount,
   points,
   tier,
-  role,
-  setRole,
   isOffline,
   onToggleOffline,
   showSyncToast,
@@ -123,28 +119,23 @@ export default function MobileSimulator({
           <div className="flex items-center gap-1 bg-gray-100 p-0.5 rounded-lg border border-gray-200">
             <button 
               id="role-cust-btn"
-              onClick={() => setRole("customer")}
-              className={`px-2.5 py-1 rounded-md transition-all font-medium cursor-pointer ${
-                role === "customer" 
-                  ? "bg-white text-amber-700 shadow-xs" 
-                  : "text-gray-500 hover:text-gray-800"
-              }`}
+              onClick={() => {
+                window.history.pushState(null, "", "/");
+                window.dispatchEvent(new PopStateEvent("popstate"));
+              }}
+              className="px-2.5 py-1 rounded-md transition-all font-medium cursor-pointer bg-white text-amber-700 shadow-xs"
             >
               Customer
             </button>
             <button 
               id="role-owner-btn"
               onClick={() => {
-                setRole("owner");
-                onNavigate({ type: "OwnerConsole" });
+                window.history.pushState(null, "", "/owner");
+                window.dispatchEvent(new PopStateEvent("popstate"));
               }}
-              className={`px-2.5 py-1 rounded-md transition-all font-medium flex items-center gap-1 cursor-pointer ${
-                role === "owner" 
-                  ? "bg-amber-600 text-white shadow-xs" 
-                  : "text-gray-500 hover:text-gray-800"
-              }`}
+              className="px-2.5 py-1 rounded-md transition-all font-medium flex items-center gap-1 cursor-pointer text-gray-500 hover:text-gray-800"
             >
-              <Settings size={11} className={role === "owner" ? "animate-spin" : ""} />
+              <Settings size={11} />
               <span>Owner</span>
             </button>
           </div>

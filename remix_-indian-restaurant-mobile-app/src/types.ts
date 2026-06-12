@@ -25,6 +25,7 @@ export interface MenuItem {
   rating: number;
   reviewCount: number;
   imageUrl?: string;
+  isAvailable?: boolean;
 }
 
 export interface TableBooking {
@@ -38,7 +39,8 @@ export interface TableBooking {
   numGuests: number;
   seatingArea: string; // "Indoor Salon", "Sunlight Terrace", "Private Lounge", "Garden"
   specialRequest: string;
-  status: "Confirmed" | "Cancelled";
+  status: "Pending" | "Confirmed" | "Cancelled" | "Seated" | "Completed" | "Declined";
+  tableNumber?: string;
   timestamp: number;
   isOfflinePending?: boolean;
 }
@@ -53,7 +55,7 @@ export interface FoodOrder {
   gstAndTaxes: number;
   deliveryFee: number;
   total: number;
-  status: "Placed" | "Preparing" | "Out for Delivery" | "Delivered";
+  status: "Placed" | "Preparing" | "Out for Delivery" | "Delivered" | "Cancelled";
   timestamp: number;
   pointsEarned: number;
   isOfflinePending?: boolean;
@@ -74,6 +76,7 @@ export interface Review {
   userName: string;
   rating: number; // 1 to 5
   comment: string;
+  chefResponse?: string;
   timestamp: number;
 }
 

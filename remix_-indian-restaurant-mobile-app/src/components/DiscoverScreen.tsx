@@ -235,36 +235,6 @@ export default function DiscoverScreen({
         )}
       </div>
 
-      {/* AI Saffron Sommelier Promotional Invitation Card */}
-      {onNavigateTo && (
-        <motion.div 
-          onClick={() => onNavigateTo({ type: "AISommelier" })}
-          whileHover={{ y: -2, scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
-          className="shrink-0 bg-gradient-to-r from-slate-900 to-[#1e1e2d] border border-amber-500/30 rounded-3xl p-4 flex items-center justify-between gap-3 shadow-md relative overflow-hidden cursor-pointer group"
-        >
-          {/* Ambient Glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/15 transition-all" />
-          
-          <div className="flex flex-col gap-1.5 z-10 max-w-[70%]">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-wider font-extrabold text-amber-500 uppercase">
-              <Sparkles size={11} className="animate-pulse" />
-              <span>Royal Palate Consulting</span>
-            </div>
-            <h3 className="text-xs font-black text-white leading-tight">
-              Consult Saffron Sommelier
-            </h3>
-            <p className="text-[10px] text-slate-350 leading-relaxed font-semibold">
-              Meet virtual Chef Arjan for custom feast planner maps, spice tuning advice, and recipe pairings.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center gap-1.5 shrink-0 z-10 bg-slate-800/80 border border-white/5 py-2.5 px-3 rounded-2xl">
-            <span className="text-2xl leading-none animate-bounce duration-[2500ms]">👳🏽‍♂️</span>
-            <span className="text-[9px] font-mono font-bold text-amber-500 uppercase">Chat Now</span>
-          </div>
-        </motion.div>
-      )}
 
       {/* Cuisine Tag Pill Filters with extra vertical space to avoid overflow-x clipping */}
       <div ref={cuisineContainerRef} className="overflow-hidden py-2 shrink-0 cursor-grab active:cursor-grabbing">

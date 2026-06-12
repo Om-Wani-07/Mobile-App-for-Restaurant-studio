@@ -1083,12 +1083,12 @@ export default function OwnerApp() {
                     <line x1="0" y1="120" x2="500" y2="120" stroke="#E8DCC4" strokeWidth="1" strokeDasharray="4" />
 
                     <path
-                      d="M 10 140 L 10 120 L 100 90 L 190 125 L 280 40 L 370 10 L 460 30 L 460 140 Z"
+                      d="M 10 140 L 10 115 C 40 105, 70 95, 100 90 C 130 85, 160 120, 190 120 C 220 120, 250 65, 280 50 C 310 35, 340 25, 370 25 C 400 25, 430 35, 460 40 L 460 140 Z"
                       fill="url(#terracottaGradient)"
                     />
 
                     <path
-                      d="M 10 120 Q 55 105 100 90 T 190 125 T 280 40 T 370 10 T 460 30"
+                      d="M 10 115 C 40 105, 70 95, 100 90 C 130 85, 160 120, 190 120 C 220 120, 250 65, 280 50 C 310 35, 340 25, 370 25 C 400 25, 430 35, 460 40"
                       fill="none"
                       stroke="url(#reportLineGrad)"
                       strokeWidth="3.5"
@@ -1111,20 +1111,20 @@ export default function OwnerApp() {
                     />
 
                     {/* Interactive segments trigger zones */}
-                    <rect x="0" y="0" width="55" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 10, y: 120, hour: "12:00 PM", amount: 1200, ordersCount: 3 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="0" y="0" width="55" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 10, y: 115, hour: "12:00 PM", amount: 1200, ordersCount: 3 })} onMouseLeave={() => setHoveredPoint(null)} />
                     <rect x="55" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 100, y: 90, hour: "2:00 PM", amount: 2400, ordersCount: 6 })} onMouseLeave={() => setHoveredPoint(null)} />
-                    <rect x="145" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 190, y: 125, hour: "4:00 PM", amount: 950, ordersCount: 2 })} onMouseLeave={() => setHoveredPoint(null)} />
-                    <rect x="235" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 280, y: 40, hour: "6:00 PM", amount: 4800, ordersCount: 11 })} onMouseLeave={() => setHoveredPoint(null)} />
-                    <rect x="325" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 370, y: 10, hour: "8:00 PM", amount: 7200, ordersCount: 18 })} onMouseLeave={() => setHoveredPoint(null)} />
-                    <rect x="415" y="0" width="85" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 460, y: 30, hour: "10:00 PM", amount: 5900, ordersCount: 15 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="145" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 190, y: 120, hour: "4:00 PM", amount: 950, ordersCount: 2 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="235" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 280, y: 50, hour: "6:00 PM", amount: 4800, ordersCount: 11 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="325" y="0" width="90" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 370, y: 25, hour: "8:00 PM", amount: 7200, ordersCount: 18 })} onMouseLeave={() => setHoveredPoint(null)} />
+                    <rect x="415" y="0" width="85" height="150" fill="transparent" className="cursor-pointer" onMouseEnter={() => setHoveredPoint({ x: 460, y: 40, hour: "10:00 PM", amount: 5900, ordersCount: 15 })} onMouseLeave={() => setHoveredPoint(null)} />
 
                     {/* Data Circles */}
-                    <circle cx="10" cy="120" r={hoveredPoint?.hour === "12:00 PM" ? 7 : 4.5} fill="#C84B31" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="10" cy="115" r={hoveredPoint?.hour === "12:00 PM" ? 7 : 4.5} fill="#C84B31" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
                     <circle cx="100" cy="90" r={hoveredPoint?.hour === "2:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
-                    <circle cx="190" cy="125" r={hoveredPoint?.hour === "4:00 PM" ? 7 : 4.5} fill="#C84B31" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
-                    <circle cx="280" cy="40" r={hoveredPoint?.hour === "6:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
-                    <circle cx="370" cy="10" r={hoveredPoint?.hour === "8:00 PM" ? 7 : 4.5} fill="#13213C" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
-                    <circle cx="460" cy="30" r={hoveredPoint?.hour === "10:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="190" cy="120" r={hoveredPoint?.hour === "4:00 PM" ? 7 : 4.5} fill="#C84B31" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="280" cy="50" r={hoveredPoint?.hour === "6:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="370" cy="25" r={hoveredPoint?.hour === "8:00 PM" ? 7 : 4.5} fill="#13213C" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
+                    <circle cx="460" cy="40" r={hoveredPoint?.hour === "10:00 PM" ? 7 : 4.5} fill="#C89D5E" stroke="white" strokeWidth="1.5" className="transition-all duration-150" />
 
                     {/* Hover Tooltip Render */}
                     {hoveredPoint && (() => {

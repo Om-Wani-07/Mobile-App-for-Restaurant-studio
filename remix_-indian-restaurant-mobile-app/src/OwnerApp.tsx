@@ -481,27 +481,31 @@ export default function OwnerApp() {
 
                           {/* Specials */}
                           <div className="flex flex-col items-center gap-0.5">
-                            <span className="text-[8px] text-slate-400 font-bold uppercase tracking-wider">Special</span>
+                            <span className="text-[8.5px] text-slate-500 font-bold uppercase tracking-wider">Special</span>
                             <button
                               onClick={() => handleToggleSpecialOption(item.id, !item.isSpecial)}
-                              className={`w-9 h-5 rounded-full p-0.5 transition-all ${
-                                item.isSpecial ? "bg-[#C84B31]" : "bg-slate-250"
+                              className={`w-9 h-5 rounded-full p-0.5 transition-all cursor-pointer border ${
+                                item.isSpecial 
+                                  ? "bg-[#C84B31] border-[#C84B31]" 
+                                  : "bg-slate-200 border-slate-300"
                               }`}
                             >
-                              <div className={`bg-white w-4 h-4 rounded-full transition-all ${item.isSpecial ? "translate-x-4" : "translate-x-0"}`} />
+                              <div className={`bg-white w-3.5 h-3.5 rounded-full shadow-sm transition-all ${item.isSpecial ? "translate-x-4" : "translate-x-0"}`} />
                             </button>
                           </div>
 
                           {/* Stock Availability */}
                           <div className="flex flex-col items-center gap-0.5">
-                            <span className="text-[8px] text-slate-400 font-bold uppercase tracking-wider">Stock</span>
+                            <span className="text-[8.5px] text-slate-500 font-bold uppercase tracking-wider">Stock</span>
                             <button
                               onClick={() => handleToggleAvailability(item.id, item.isAvailable !== false ? false : true)}
-                              className={`w-9 h-5 rounded-full p-0.5 transition-all ${
-                                item.isAvailable !== false ? "bg-emerald-600" : "bg-red-700"
+                              className={`w-9 h-5 rounded-full p-0.5 transition-all cursor-pointer border ${
+                                item.isAvailable !== false 
+                                  ? "bg-emerald-600 border-emerald-600" 
+                                  : "bg-slate-200 border-slate-300"
                               }`}
                             >
-                              <div className={`bg-white w-4 h-4 rounded-full transition-all ${item.isAvailable !== false ? "translate-x-4" : "translate-x-0"}`} />
+                              <div className={`bg-white w-3.5 h-3.5 rounded-full shadow-sm transition-all ${item.isAvailable !== false ? "translate-x-4" : "translate-x-0"}`} />
                             </button>
                           </div>
                         </div>

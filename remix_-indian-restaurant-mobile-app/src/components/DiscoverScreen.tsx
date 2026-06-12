@@ -292,13 +292,13 @@ export default function DiscoverScreen({
               </defs>
             </svg>
             <h2 
-              className="text-[17px] font-bold text-[#0F1E36] tracking-wide flex items-center gap-1.5"
+              className="text-[17px] font-bold text-[#0F1E36] tracking-wide flex items-center gap-1"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               <span>Chef&apos;s Signature Specials</span>
-              <svg className="w-3.5 h-3.5 text-[#8C6239] shrink-0 opacity-90" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 2v5c0 1.1-.9 2-2 2H6.5v11H5v-11H3.5c-1.1 0-2-.9-2-2V2h1v5c0 .55.45 1 1 1h.5V2h1v6h.5V2h1v6h.5c.55 0 1-.45 1-1V2h1z" />
-                <path d="M19 2v10h-1.5v7H16v-7c0-2.5 1.5-4.5 3-7.5l.5-1.5h1z" />
+              <svg className="w-[18px] h-[18px] text-[#8C6239] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.1 2h-.8c-.3 0-.5.2-.5.5v5.5c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V2.5c0-.3-.2-.5-.5-.5h-.8c-.3 0-.5.2-.5.5v5.5c0 2.2 1.6 4 3.8 4.4V21.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V12.4c2.2-.4 3.8-2.2 3.8-4.4V2.5c0-.3-.2-.5-.5-.5z" />
+                <path d="M19.9 2h-1c-2.2 0-4 1.8-4 4v7c0 .6.4 1 1 1h1v7.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V2.5c0-.3-.2-.5-.5-.5z" />
               </svg>
             </h2>
           </div>
@@ -388,13 +388,13 @@ export default function DiscoverScreen({
       {/* Restaurant List Section */}
       <div className="flex flex-col gap-3">
         <h2 
-          className="text-[17px] font-bold text-[#0F1E36] tracking-wide flex items-center gap-1.5"
+          className="text-[17px] font-bold text-[#0F1E36] tracking-wide flex items-center gap-1"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           <span>Chef&apos;s Gourmet Kitchen spots</span>
-          <svg className="w-3.5 h-3.5 text-[#8C6239] shrink-0 opacity-90" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9 2v5c0 1.1-.9 2-2 2H6.5v11H5v-11H3.5c-1.1 0-2-.9-2-2V2h1v5c0 .55.45 1 1 1h.5V2h1v6h.5V2h1v6h.5c.55 0 1-.45 1-1V2h1z" />
-            <path d="M19 2v10h-1.5v7H16v-7c0-2.5 1.5-4.5 3-7.5l.5-1.5h1z" />
+          <svg className="w-[18px] h-[18px] text-[#8C6239] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.1 2h-.8c-.3 0-.5.2-.5.5v5.5c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V2.5c0-.3-.2-.5-.5-.5h-.8c-.3 0-.5.2-.5.5v5.5c0 2.2 1.6 4 3.8 4.4V21.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V12.4c2.2-.4 3.8-2.2 3.8-4.4V2.5c0-.3-.2-.5-.5-.5z" />
+            <path d="M19.9 2h-1c-2.2 0-4 1.8-4 4v7c0 .6.4 1 1 1h1v7.5c0 .3.2.5.5.5h1c.3 0 .5-.2.5-.5V2.5c0-.3-.2-.5-.5-.5z" />
           </svg>
         </h2>
 

@@ -268,10 +268,10 @@ export default function OwnerApp() {
               className="text-[9px] uppercase font-black text-[#C89D5E] tracking-[0.2em] leading-none"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
-              MAHARAJA ROYAL DARBAR
+              MAHARAJA BACKOFFICE CONSOLE
             </h1>
-            <span className="text-lg font-black tracking-tight text-[#2C2321] flex items-center gap-2 mt-0.5">
-              Imperial Backoffice Console
+            <span className="text-xl font-bold tracking-wide text-[#2C2321] flex items-center gap-2 mt-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Royal India Spoon
               <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             </span>
           </div>

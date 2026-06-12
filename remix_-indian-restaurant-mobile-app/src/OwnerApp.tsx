@@ -228,6 +228,30 @@ export default function OwnerApp() {
     }
   });
 
+  // Real-time AI Advisor calculations
+  const activeRestItemsList = menuItems.filter(item => item.restaurantId === selectedRestId);
+  const outOfStockItems = activeRestItemsList.filter(item => item.isAvailable === false);
+  const specialItems = activeRestItemsList.filter(item => item.isSpecial);
+  const outOfStockSpecials = activeRestItemsList.filter(item => item.isSpecial && item.isAvailable === false);
+  const potentialSpecials = activeRestItemsList.filter(item => !item.isSpecial && item.isAvailable !== false);
+  const highestPricedItem = [...activeRestItemsList].sort((a, b) => b.price - a.price)[0];
+
+  // Dynamic top ordered item
+  const orderCounts: Record<number, number> = {};
+  orders.forEach(o => {
+    if (o.restaurantId === selectedRestId && o.status !== "Cancelled") {
+      o.items?.forEach(it => {
+        orderCounts[it.menuItem.id] = (orderCounts[it.menuItem.id] || 0) + it.quantity;
+      });
+    }
+  });
+  const topOrderedItemId = Object.entries(orderCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
+  const topOrderedItem = topOrderedItemId ? activeRestItemsList.find(i => i.id === parseInt(topOrderedItemId)) : null;
+
+  // Unanswered reviews
+  const unansweredReviews = reviews.filter(r => r.restaurantId === selectedRestId && !r.chefResponse);
+  const latestReview = reviews.filter(r => r.restaurantId === selectedRestId).sort((a, b) => b.id - a.id)[0];
+
   return (
     <div 
       className="min-h-screen bg-[#FAF7F2] text-[#2C2321] flex flex-col font-sans relative overflow-x-hidden selection:bg-[#C84B31] selection:text-white"
@@ -1236,12 +1260,24 @@ export default function OwnerApp() {
                   <span className="text-xs font-bold text-[#1E1412] uppercase font-mono tracking-wider">Culinary Recommendations</span>
                 </div>
                 <div className="flex flex-col gap-3 text-xs text-slate-700 leading-relaxed font-medium">
-                  <p>
-                    👑 <b className="text-[#C84B31]">Hyderabadi Dum Biryani</b> sales have climbed by <span className="text-emerald-600 font-bold">18%</span>. We recommend marking it as a **Chef Special** to increase visibility.
-                  </p>
-                  <p>
-                    💰 Gourmet menu audits suggest adjusting pricing of **Tandoori Saffron Paneer Tikka** from ₹340 to ₹365 to optimize margins, as it holds a <span className="text-[#C89D5E] font-bold">4.7 rating</span>.
-                  </p>
+                  {outOfStockSpecials.length > 0 ? (
+                    <p>
+                      ❌ Chef Special <b className="text-[#C84B31]">{outOfStockSpecials[0].name}</b> is sold out! Toggle it off special or restock ingredients to prevent disappointing royal guests.
+                    </p>
+                  ) : potentialSpecials.length > 0 ? (
+                    <p>
+                      👑 We recommend marking <b className="text-[#C84B31]">{potentialSpecials[0].name}</b> as a Chef Special to increase its menu visibility and sales.
+                    </p>
+                  ) : (
+                    <p>
+                      👑 All chef specials are fully stocked and active. Keep introducing new seasonal recipes to delight customers.
+                    </p>
+                  )}
+                  {highestPricedItem && (
+                    <p>
+                      💰 Gourmet menu audits suggest reviewing pricing of <b className="text-[#2C2321]">{highestPricedItem.name}</b> (currently ₹{highestPricedItem.price}) to ensure margins align with category standards.
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1252,12 +1288,24 @@ export default function OwnerApp() {
                   <span className="text-xs font-bold text-[#1E1412] uppercase font-mono tracking-wider">Kitchen Health Alerts</span>
                 </div>
                 <div className="flex flex-col gap-3 text-xs text-slate-700 leading-relaxed font-medium">
-                  <p>
-                    ⚠️ Your kitchen is currently running <span className="text-red-650 font-bold">1 item out of stock</span> (Paneer Tikka). Customers looking at Saffron Taj menu see a "Sold Out" banner.
-                  </p>
-                  <p>
-                    🥘 Butter Chicken is ordered in <span className="text-[#C84B31] font-bold">45% of orders</span>. Restock active stocks of fresh saffron and butter cream before the weekend dinner peak.
-                  </p>
+                  {outOfStockItems.length > 0 ? (
+                    <p>
+                      ⚠️ Your kitchen is currently running <span className="text-red-650 font-bold">{outOfStockItems.length} {outOfStockItems.length === 1 ? "item" : "items"} out of stock</span> ({outOfStockItems.map(i => i.name).join(', ')}). Customers looking at the menu see a "Sold Out" banner.
+                    </p>
+                  ) : (
+                    <p>
+                      ✅ Excellent! All {activeRestItemsList.length} delicacies are fully stocked. Kitchen is running with 0 supply gaps.
+                    </p>
+                  )}
+                  {topOrderedItem ? (
+                    <p>
+                      🥘 <b className="text-[#2C2321]">{topOrderedItem.name}</b> is ordered frequently (top seller today). Restock fresh ingredients before peak dinner rush.
+                    </p>
+                  ) : (
+                    <p>
+                      🥘 Butter Chicken remains a staple. Ensure cream and spices are fully stocked before weekend dinner rush.
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1268,12 +1316,24 @@ export default function OwnerApp() {
                   <span className="text-xs font-bold text-[#1E1412] uppercase font-mono tracking-wider">Hospitality Insights</span>
                 </div>
                 <div className="flex flex-col gap-3 text-xs text-slate-700 leading-relaxed font-medium">
-                  <p>
-                    💬 You have <span className="text-[#C84B31] font-bold">{reviews.filter(r => !r.chefResponse).length} reviews</span> without a Chef Response. Promptly replying to reviews increases customer return rates by 22%.
-                  </p>
-                  <p>
-                    💬 Rahul Sharma gave a 5-star review about soft saffron paneer. Consider offering a loyalty bonus code to return patrons.
-                  </p>
+                  {unansweredReviews.length > 0 ? (
+                    <p>
+                      💬 You have <span className="text-[#C84B31] font-bold">{unansweredReviews.length} unanswered reviews</span>. Promptly replying to reviews increases customer return rates by 22%.
+                    </p>
+                  ) : (
+                    <p>
+                      ✅ Stellar job! 100% of customer reviews have been replied to by the Chef.
+                    </p>
+                  )}
+                  {latestReview ? (
+                    <p>
+                      💬 {latestReview.userName} gave a {latestReview.rating}-star review: "{latestReview.comment.length > 65 ? latestReview.comment.slice(0, 65) + '...' : latestReview.comment}". Consider offering loyalty rewards.
+                    </p>
+                  ) : (
+                    <p>
+                      💬 Customer feedback is excellent. Maintain high service quality during weekend dining slots.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -1282,7 +1342,13 @@ export default function OwnerApp() {
             <div className="bg-[#FFFDF9] border border-[#E8DCC4] rounded-2xl p-4.5 flex gap-3.5 text-xs text-[#8C5D3A] leading-relaxed italic shadow-xs">
               <Sparkles size={20} className="text-[#C89D5E] shrink-0 mt-0.5" />
               <p>
-                "My Lord Maharaja, the royal dining chamber is operating at optimum capacity. Turnaround speeds are steady, and guests are highly praising the spice balances. Keeping Paneer Tikka stocked is your highest priority today."
+                {outOfStockItems.length > 0 ? (
+                  `"My Lord Maharaja, the royal kitchen is currently short of active supplies. Restocking ${outOfStockItems[0].name} is your highest priority to maintain the royal banquet."`
+                ) : outOfStockSpecials.length > 0 ? (
+                  `"My Lord Maharaja, the royal dining chamber is out of active chef specials. Please restock ingredients for ${outOfStockSpecials[0].name} immediately."`
+                ) : (
+                  `"My Lord Maharaja, the royal dining chamber is operating at optimum capacity. Turnaround speeds are steady, and guests are highly praising the spice balances."`
+                )}
               </p>
             </div>
           </section>

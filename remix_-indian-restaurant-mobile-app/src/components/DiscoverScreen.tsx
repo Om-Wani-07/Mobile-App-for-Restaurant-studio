@@ -270,10 +270,6 @@ export default function DiscoverScreen({
               Chef&apos;s Signature Specials
             </h2>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-[10px] text-gray-400 font-medium">Swipe or Drag</span>
-            <span className="text-[11px] font-bold text-amber-700 font-mono">MUST TRY</span>
-          </div>
         </div>
 
         {/* Outer Carousel Container */}

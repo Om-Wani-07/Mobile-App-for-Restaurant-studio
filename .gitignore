@@ -6,3 +6,4 @@ remix_-indian-restaurant-mobile-app/coverage/
 *.log
 .env*
 !remix_-indian-restaurant-mobile-app/.env.example
+remix_-indian-restaurant-mobile-app/tools/

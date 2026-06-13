@@ -134,14 +134,12 @@ export default function DiscoverScreen({
             opacity: 0, 
             y: 20, 
             letterSpacing: "-0.04em",
-            filter: "blur(6px)",
             textShadow: "0 0 0px rgba(212, 175, 55, 0)"
           }}
           animate={{ 
             opacity: 1, 
             y: 0, 
             letterSpacing: "0.05em",
-            filter: "blur(0px)",
             textShadow: [
               "0 0 0px rgba(212, 175, 55, 0)",
               "0 0 16px rgba(212, 175, 55, 0.45)",
@@ -159,8 +157,8 @@ export default function DiscoverScreen({
           Royal India Spoon
         </motion.h1>
         <motion.div 
-          initial={{ opacity: 0, scaleX: 0, filter: "blur(2px)" }}
-          animate={{ opacity: 0.8, scaleX: 1, filter: "blur(0px)" }}
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 0.8, scaleX: 1 }}
           transition={{ 
             delay: 0.4, 
             duration: 1.0, 

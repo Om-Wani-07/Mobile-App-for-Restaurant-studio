@@ -85,31 +85,80 @@ export default function DiscoverScreen({
     return associatedRest && associatedRest.cuisine.includes(selectedCuisineFilter);
   });
 
-  // Carousel slider ref & drag constraints calculation
+  // Carousel slider ref & drag scroll logic
   const carouselRef = useRef<HTMLDivElement>(null);
   const cuisineContainerRef = useRef<HTMLDivElement>(null);
-  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
 
   useEffect(() => {
-    const calculateConstraints = () => {
-      if (carouselRef.current) {
-        const totalWidth = carouselRef.current.scrollWidth;
-        const visibleWidth = carouselRef.current.offsetWidth;
-        setDragConstraints({
-          left: Math.min(0, -(totalWidth - visibleWidth)),
-          right: 0
-        });
-      }
+    const setupDragScroll = (el: HTMLDivElement | null) => {
+      if (!el) return;
+      let isDown = false;
+      let isDragging = false;
+      let startX: number;
+      let startY: number;
+      let scrollLeft: number;
+
+      const handleMouseDown = (e: MouseEvent) => {
+        isDown = true;
+        isDragging = false;
+        startX = e.pageX - el.offsetLeft;
+        startY = e.pageY - el.offsetTop;
+        scrollLeft = el.scrollLeft;
+        el.style.cursor = "grabbing";
+      };
+
+      const handleMouseLeave = () => {
+        isDown = false;
+        el.style.cursor = "grab";
+      };
+
+      const handleMouseUp = () => {
+        isDown = false;
+        el.style.cursor = "grab";
+        if (isDragging) {
+          const preventClick = (clickEvent: MouseEvent) => {
+            clickEvent.stopImmediatePropagation();
+            clickEvent.preventDefault();
+            el.removeEventListener("click", preventClick, true);
+          };
+          el.addEventListener("click", preventClick, true);
+        }
+      };
+
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!isDown) return;
+        const x = e.pageX - el.offsetLeft;
+        const y = e.pageY - el.offsetTop;
+        const dist = Math.sqrt((x - startX) ** 2 + (y - startY) ** 2);
+        if (dist > 6) {
+          isDragging = true;
+        }
+        if (isDragging) {
+          e.preventDefault();
+          const walk = (x - startX) * 1.5; // Speed multiplier
+          el.scrollLeft = scrollLeft - walk;
+        }
+      };
+
+      el.addEventListener("mousedown", handleMouseDown);
+      el.addEventListener("mouseleave", handleMouseLeave);
+      el.addEventListener("mouseup", handleMouseUp);
+      el.addEventListener("mousemove", handleMouseMove);
+
+      return () => {
+        el.removeEventListener("mousedown", handleMouseDown);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+        el.removeEventListener("mouseup", handleMouseUp);
+        el.removeEventListener("mousemove", handleMouseMove);
+      };
     };
 
-    calculateConstraints();
-    // Re-check after short render delay to ensure images/layouts are computed
-    const timer = setTimeout(calculateConstraints, 250);
-    window.addEventListener("resize", calculateConstraints);
+    const cleanupCarousel = setupDragScroll(carouselRef.current);
+    const cleanupCuisine = setupDragScroll(cuisineContainerRef.current);
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", calculateConstraints);
+      if (cleanupCarousel) cleanupCarousel();
+      if (cleanupCuisine) cleanupCuisine();
     };
   }, [specials, selectedCuisineFilter, restaurants]);
 
@@ -268,28 +317,23 @@ export default function DiscoverScreen({
 
 
       {/* Cuisine Tag Pill Filters with extra vertical space to avoid overflow-x clipping */}
-      <div ref={cuisineContainerRef} className="overflow-hidden py-2 shrink-0 cursor-grab active:cursor-grabbing">
-        <motion.div
-          drag="x"
-          dragConstraints={cuisineContainerRef}
-          dragElastic={0.15}
-          dragTransition={{ power: 0.2, timeConstant: 150 }}
-          className="flex gap-2.5 w-max"
-        >
-          {cuisines.map(cuisine => (
-            <button
-              key={cuisine}
-              onClick={() => setSelectedCuisineFilter(cuisine)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all border shrink-0 ${
-                selectedCuisineFilter === cuisine
-                  ? "bg-amber-600 text-white border-amber-600 shadow-sm scale-[1.02]"
-                  : "bg-white text-gray-600 border-gray-100 hover:text-gray-800 hover:bg-gray-50"
-              }`}
-            >
-              {cuisine}
-            </button>
-          ))}
-        </motion.div>
+      <div 
+        ref={cuisineContainerRef} 
+        className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-2 shrink-0 cursor-grab flex gap-2.5 w-full select-none"
+      >
+        {cuisines.map(cuisine => (
+          <button
+            key={cuisine}
+            onClick={() => setSelectedCuisineFilter(cuisine)}
+            className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all border shrink-0 ${
+              selectedCuisineFilter === cuisine
+                ? "bg-amber-600 text-white border-amber-600 shadow-sm scale-[1.02]"
+                : "bg-white text-gray-600 border-gray-100 hover:text-gray-800 hover:bg-gray-50"
+            }`}
+          >
+            {cuisine}
+          </button>
+        ))}
       </div>
 
       {/* Chef's Curated Masterpiece Specials (Horizontal Slider) */}
@@ -340,73 +384,64 @@ export default function DiscoverScreen({
         {/* Outer Carousel Container */}
         <div 
           ref={carouselRef} 
-          className="overflow-hidden -mx-4 px-4 cursor-grab active:cursor-grabbing"
+          className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 cursor-grab flex gap-4 pb-3 scroll-smooth select-none"
         >
-          <motion.div 
-            drag="x"
-            dragConstraints={dragConstraints}
-            dragElastic={0.15}
-            dragTransition={{ power: 0.2, timeConstant: 150 }}
-            className="flex gap-4 pb-3"
-          >
-            {filteredSpecials.map(item => {
-              const associatedRest = restaurants.find(r => r.id === item.restaurantId);
-              const isGrandRoyal = item.name === "Grand Royal Butter Chicken";
-              return (
-                <motion.div 
-                  key={item.id}
-                  whileHover={{ 
-                    scale: 1.03, 
-                    y: -4, 
-                    boxShadow: "0 12px 20px -8px rgba(200, 157, 94, 0.25)" 
-                  }}
-                  whileTap={{ 
-                    scale: 1.06, 
-                    y: -6,
-                    rotate: [0, -1, 1, 0],
-                    transition: {
-                      scale: { type: "spring", stiffness: 600, damping: 12 },
-                      y: { type: "spring", stiffness: 650, damping: 12 },
-                      rotate: { type: "tween", ease: "easeInOut", duration: 0.2 }
-                    }
-                  }}
-                  onClick={() => handleSelectDish(item)}
-                  className="bg-white rounded-2xl border border-amber-300 p-3.5 flex flex-col gap-2 w-60 h-[175px] shrink-0 cursor-pointer group select-none ring-2 ring-amber-500/5 bg-amber-50/5 hover:border-amber-500 transition-all"
-                >
-                  {/* Special Tag badge */}
-                  <div className="flex justify-between items-center">
-                    <span className={`h-2.5 w-2.5 rounded-full ${item.isVeg ? "bg-emerald-500" : "bg-rose-500"} ring-4 ring-slate-100`} />
-                    <span className="text-[9px] bg-amber-50 border border-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-md">
-                      ★ {item.rating}
-                    </span>
-                  </div>
+          {filteredSpecials.map(item => {
+            const associatedRest = restaurants.find(r => r.id === item.restaurantId);
+            return (
+              <motion.div 
+                key={item.id}
+                whileHover={{ 
+                  scale: 1.03, 
+                  y: -4, 
+                  boxShadow: "0 12px 20px -8px rgba(200, 157, 94, 0.25)" 
+                }}
+                whileTap={{ 
+                  scale: 1.06, 
+                  y: -6,
+                  rotate: [0, -1, 1, 0],
+                  transition: {
+                    scale: { type: "spring", stiffness: 600, damping: 12 },
+                    y: { type: "spring", stiffness: 650, damping: 12 },
+                    rotate: { type: "tween", ease: "easeInOut", duration: 0.2 }
+                  }
+                }}
+                onClick={() => handleSelectDish(item)}
+                className="bg-white rounded-2xl border border-amber-300 p-3.5 flex flex-col gap-2 w-60 h-[175px] shrink-0 cursor-pointer group select-none ring-2 ring-amber-500/5 bg-amber-50/5 hover:border-amber-500 transition-all"
+              >
+                {/* Special Tag badge */}
+                <div className="flex justify-between items-center">
+                  <span className={`h-2.5 w-2.5 rounded-full ${item.isVeg ? "bg-emerald-500" : "bg-rose-500"} ring-4 ring-slate-100`} />
+                  <span className="text-[9px] bg-amber-50 border border-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-md">
+                    ★ {item.rating}
+                  </span>
+                </div>
 
-                  <div className="flex flex-col gap-0.5">
-                    <h3 className="text-xs font-extrabold text-gray-900 group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug min-h-[32px]">
-                      {item.name}
-                    </h3>
-                    <span className="text-[10px] font-mono text-gray-400">
-                      {associatedRest?.name || "Kitchen Specialist"}
-                    </span>
-                  </div>
+                <div className="flex flex-col gap-0.5">
+                  <h3 className="text-xs font-extrabold text-gray-900 group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug min-h-[32px]">
+                    {item.name}
+                  </h3>
+                  <span className="text-[10px] font-mono text-gray-400">
+                    {associatedRest?.name || "Kitchen Specialist"}
+                  </span>
+                </div>
 
-                  <p className="text-[10px] text-gray-500 line-clamp-2 leading-relaxed">
-                    {item.description}
-                  </p>
+                <p className="text-[10px] text-gray-500 line-clamp-2 leading-relaxed">
+                  {item.description}
+                </p>
 
-                  <div className="mt-auto pt-2 border-t border-gray-50 flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-amber-700">
-                      ₹{item.price}
-                    </span>
-                    <div className="text-[10px] bg-slate-50 px-2.5 py-0.5 rounded-md font-semibold text-gray-650 flex items-center gap-0.5">
-                      <span>View Menu</span>
-                      <ChevronRight size={10} />
-                    </div>
+                <div className="mt-auto pt-2 border-t border-gray-50 flex items-center justify-between">
+                  <span className="text-xs font-mono font-bold text-amber-700">
+                    ₹{item.price}
+                  </span>
+                  <div className="text-[10px] bg-slate-50 px-2.5 py-0.5 rounded-md font-semibold text-gray-650 flex items-center gap-0.5">
+                    <span>View Menu</span>
+                    <ChevronRight size={10} />
                   </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 

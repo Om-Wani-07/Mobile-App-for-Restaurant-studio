@@ -127,21 +127,58 @@ export default function DiscoverScreen({
   return (
     <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-5 select-none bg-slate-50 [scrollbar-width:none]">
       {/* Brand Elegant Greeting */}
-      <div className="flex flex-col items-center justify-center text-center py-2 shrink-0 select-none">
-        <h1 
+      <motion.div 
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.25
+            }
+          }
+        }}
+        className="flex flex-col items-center justify-center text-center py-2 shrink-0 select-none"
+      >
+        <motion.h1 
+          variants={{
+            hidden: { opacity: 0, y: 15, scale: 0.95 },
+            show: { 
+              opacity: 1, 
+              y: 0, 
+              scale: 1,
+              transition: { 
+                duration: 1.0, 
+                ease: [0.16, 1, 0.3, 1] 
+              } 
+            }
+          }}
           className="text-4xl font-extrabold tracking-wide uppercase bg-gradient-to-r from-[#C84B31] via-[#D4AF37] to-[#8C5D3A] bg-clip-text text-transparent drop-shadow-xs"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           Royal India Spoon
-        </h1>
-        <div className="flex items-center gap-3 w-full max-w-[240px] mt-2 opacity-80">
+        </motion.h1>
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0, scaleX: 0 },
+            show: { 
+              opacity: 0.8, 
+              scaleX: 1,
+              transition: { 
+                duration: 0.8, 
+                ease: "easeOut" 
+              } 
+            }
+          }}
+          className="flex items-center gap-3 w-full max-w-[240px] mt-2 origin-center"
+        >
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C89D5E]" />
           <svg className="w-4.5 h-4.5 text-[#C89D5E] animate-pulse" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2a10 10 0 0 1 2.5 6.5A10 10 0 0 1 12 15a10 10 0 0 1-2.5-6.5A10 10 0 0 1 12 2zm0 13a7 7 0 0 1 2 4.5A7 7 0 0 1 12 24a7 7 0 0 1-2-4.5A7 7 0 0 1 12 15zm-5-6a7 7 0 0 1 4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1-4.5 2A7 7 0 0 1 7 9.5zm10 0a7 7 0 0 1-4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1 4.5 2A7 7 0 0 1 17 9.5z" opacity="0.85" />
           </svg>
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]" />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Styled Interactive Search Bar */}
       <div className="relative shrink-0 z-50">

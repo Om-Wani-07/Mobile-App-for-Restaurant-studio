@@ -127,75 +127,44 @@ export default function DiscoverScreen({
   return (
     <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-5 select-none bg-slate-50 [scrollbar-width:none]">
       {/* Brand Elegant Greeting */}
-      <motion.div 
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: {},
-          show: {
-            transition: {
-              staggerChildren: 0.25
-            }
-          }
-        }}
-        className="flex flex-col items-center justify-center text-center py-2 shrink-0 select-none"
-      >
+      {/* Brand Elegant Greeting */}
+      <div className="flex flex-col items-center justify-center text-center py-2 shrink-0 select-none">
         <motion.h1 
-          variants={{
-            hidden: {},
-            show: {
-              transition: {
-                staggerChildren: 0.04,
-                delayChildren: 0.1
-              }
-            }
+          initial={{ 
+            opacity: 0, 
+            y: 20, 
+            letterSpacing: "-0.04em",
+            filter: "blur(6px)",
+            textShadow: "0 0 0px rgba(212, 175, 55, 0)"
           }}
-          className="text-4xl font-extrabold tracking-wide uppercase drop-shadow-xs animate-gold-shine text-center flex flex-wrap justify-center gap-x-3 gap-y-1"
+          animate={{ 
+            opacity: 1, 
+            y: 0, 
+            letterSpacing: "0.05em",
+            filter: "blur(0px)",
+            textShadow: [
+              "0 0 0px rgba(212, 175, 55, 0)",
+              "0 0 16px rgba(212, 175, 55, 0.45)",
+              "0 0 2px rgba(212, 175, 55, 0.15)"
+            ]
+          }}
+          transition={{ 
+            duration: 1.4, 
+            ease: [0.16, 1, 0.3, 1],
+            textShadow: { duration: 1.8, ease: "easeOut" }
+          }}
+          className="text-4xl font-extrabold uppercase drop-shadow-xs animate-gold-shine text-center"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          {"Royal India Spoon".toUpperCase().split(" ").map((word, wordIndex) => (
-            <span key={wordIndex} className="inline-block whitespace-nowrap flex">
-              {word.split("").map((char, charIndex) => (
-                <motion.span
-                  key={charIndex}
-                  variants={{
-                    hidden: { 
-                      opacity: 0, 
-                      y: 35,
-                      rotate: 15,
-                      scale: 0.8
-                    },
-                    show: { 
-                      opacity: 1, 
-                      y: 0, 
-                      rotate: 0, 
-                      scale: 1,
-                      transition: { 
-                        type: "spring",
-                        damping: 10,
-                        stiffness: 110
-                      } 
-                    }
-                  }}
-                  className="inline-block origin-bottom-left"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          ))}
+          Royal India Spoon
         </motion.h1>
         <motion.div 
-          variants={{
-            hidden: { opacity: 0, scaleX: 0 },
-            show: { 
-              opacity: 0.8, 
-              scaleX: 1,
-              transition: { 
-                duration: 0.8, 
-                ease: "easeOut" 
-              } 
-            }
+          initial={{ opacity: 0, scaleX: 0, filter: "blur(2px)" }}
+          animate={{ opacity: 0.8, scaleX: 1, filter: "blur(0px)" }}
+          transition={{ 
+            delay: 0.4, 
+            duration: 1.0, 
+            ease: [0.16, 1, 0.3, 1] 
           }}
           className="flex items-center gap-3 w-full max-w-[240px] mt-2 origin-center"
         >
@@ -205,7 +174,7 @@ export default function DiscoverScreen({
           </svg>
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]" />
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Styled Interactive Search Bar */}
       <div className="relative shrink-0 z-50">

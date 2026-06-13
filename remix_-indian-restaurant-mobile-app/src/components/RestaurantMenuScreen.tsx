@@ -61,6 +61,19 @@ export default function RestaurantMenuScreen({
     }
   }, [initialCategory]);
 
+  // Scroll to highlighted dish on mount/change
+  useEffect(() => {
+    if (highlightItemId) {
+      const element = document.getElementById(`dish-card-${highlightItemId}`);
+      if (element) {
+        const timer = setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [highlightItemId, selectedCategory]);
+
   // New Review Form States
   const [isPending, startTransition] = useTransition();
   const [reviewName, setReviewName] = useState("");
@@ -242,6 +255,7 @@ export default function RestaurantMenuScreen({
                   return (
                     <motion.div 
                       key={item.id}
+                      id={`dish-card-${item.id}`}
                       initial={isHighlighted ? { scale: 0.98, borderColor: "rgba(217,119,6,0.8)" } : undefined}
                       animate={isHighlighted ? { 
                         scale: [1, 1.03, 1],

@@ -355,31 +355,23 @@ export default function DiscoverScreen({
               return (
                 <motion.div 
                   key={item.id}
-                  whileHover={
-                    isGrandRoyal 
-                      ? { scale: 1.03, y: -4, boxShadow: "0 12px 20px -8px rgba(217, 119, 6, 0.25)" } 
-                      : { scale: 1.01, y: -1 }
-                  }
-                  whileTap={
-                    isGrandRoyal 
-                      ? { 
-                          scale: 1.06, 
-                          y: -6,
-                          rotate: [0, -1, 1, 0],
-                          transition: {
-                            scale: { type: "spring", stiffness: 600, damping: 12 },
-                            y: { type: "spring", stiffness: 650, damping: 12 },
-                            rotate: { type: "tween", ease: "easeInOut", duration: 0.2 }
-                          }
-                        } 
-                      : { scale: 0.97 }
-                  }
-                  onClick={() => associatedRest && onSelectRestaurant(associatedRest)}
-                  className={`bg-white rounded-2xl border p-3.5 flex flex-col gap-2 w-60 h-[175px] shrink-0 cursor-pointer group select-none ${
-                    isGrandRoyal 
-                      ? "border-amber-300 ring-2 ring-amber-500/5 bg-amber-50/5" 
-                      : "border-gray-100/80 shadow-xs"
-                  }`}
+                  whileHover={{ 
+                    scale: 1.03, 
+                    y: -4, 
+                    boxShadow: "0 12px 20px -8px rgba(200, 157, 94, 0.25)" 
+                  }}
+                  whileTap={{ 
+                    scale: 1.06, 
+                    y: -6,
+                    rotate: [0, -1, 1, 0],
+                    transition: {
+                      scale: { type: "spring", stiffness: 600, damping: 12 },
+                      y: { type: "spring", stiffness: 650, damping: 12 },
+                      rotate: { type: "tween", ease: "easeInOut", duration: 0.2 }
+                    }
+                  }}
+                  onClick={() => handleSelectDish(item)}
+                  className="bg-white rounded-2xl border border-amber-300 p-3.5 flex flex-col gap-2 w-60 h-[175px] shrink-0 cursor-pointer group select-none ring-2 ring-amber-500/5 bg-amber-50/5 hover:border-amber-500 transition-all"
                 >
                   {/* Special Tag badge */}
                   <div className="flex justify-between items-center">

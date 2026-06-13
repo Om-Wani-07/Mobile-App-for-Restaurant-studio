@@ -96,25 +96,41 @@ export default function DiscoverScreen({
       let isDragging = false;
       let startX: number;
       let startY: number;
-      let scrollLeft: number;
+      let scrollLeftOriginal: number;
+      let velX = 0;
+      let momentumID = 0;
+
+      const updateMomentum = () => {
+        el.scrollLeft += velX;
+        velX *= 0.95; // Smooth deceleration decay
+        if (Math.abs(velX) > 0.5) {
+          momentumID = requestAnimationFrame(updateMomentum);
+        } else {
+          el.style.cursor = "grab";
+        }
+      };
 
       const handleMouseDown = (e: MouseEvent) => {
         isDown = true;
         isDragging = false;
         startX = e.pageX - el.offsetLeft;
         startY = e.pageY - el.offsetTop;
-        scrollLeft = el.scrollLeft;
+        scrollLeftOriginal = el.scrollLeft;
+        cancelAnimationFrame(momentumID);
+        velX = 0;
         el.style.cursor = "grabbing";
       };
 
       const handleMouseLeave = () => {
+        if (isDown && isDragging) {
+          momentumID = requestAnimationFrame(updateMomentum);
+        }
         isDown = false;
         el.style.cursor = "grab";
       };
 
       const handleMouseUp = () => {
         isDown = false;
-        el.style.cursor = "grab";
         if (isDragging) {
           const preventClick = (clickEvent: MouseEvent) => {
             clickEvent.stopImmediatePropagation();
@@ -122,6 +138,9 @@ export default function DiscoverScreen({
             el.removeEventListener("click", preventClick, true);
           };
           el.addEventListener("click", preventClick, true);
+          momentumID = requestAnimationFrame(updateMomentum);
+        } else {
+          el.style.cursor = "grab";
         }
       };
 
@@ -135,8 +154,10 @@ export default function DiscoverScreen({
         }
         if (isDragging) {
           e.preventDefault();
-          const walk = (x - startX) * 1.5; // Speed multiplier
-          el.scrollLeft = scrollLeft - walk;
+          const targetScrollLeft = scrollLeftOriginal - (x - startX) * 1.5;
+          const prevScrollLeft = el.scrollLeft;
+          el.scrollLeft = targetScrollLeft;
+          velX = el.scrollLeft - prevScrollLeft; // Track current drag speed
         }
       };
 
@@ -150,6 +171,7 @@ export default function DiscoverScreen({
         el.removeEventListener("mouseleave", handleMouseLeave);
         el.removeEventListener("mouseup", handleMouseUp);
         el.removeEventListener("mousemove", handleMouseMove);
+        cancelAnimationFrame(momentumID);
       };
     };
 
@@ -384,7 +406,7 @@ export default function DiscoverScreen({
         {/* Outer Carousel Container */}
         <div 
           ref={carouselRef} 
-          className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 cursor-grab flex gap-4 pb-3 scroll-smooth select-none"
+          className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 cursor-grab flex gap-4 pb-3 select-none"
         >
           {filteredSpecials.map(item => {
             const associatedRest = restaurants.find(r => r.id === item.restaurantId);

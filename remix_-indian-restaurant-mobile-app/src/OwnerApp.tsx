@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import { 
   TrendingUp, 
   ShoppingBag, 
@@ -261,25 +262,50 @@ export default function OwnerApp() {
       <header className="bg-white/90 backdrop-blur-md border-b border-[#E8DCC4]/50 px-6 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[0_2px_15px_rgba(44,35,33,0.02)] select-none shrink-0 relative z-30">
         <div className="flex items-center gap-3.5 select-none py-1">
           <div className="flex flex-col items-center justify-center text-center select-none">
-            <h1 
-              className="text-3xl font-extrabold tracking-wider uppercase bg-gradient-to-r from-[#C84B31] via-[#D4AF37] to-[#8C5D3A] bg-clip-text text-transparent leading-none"
+            <motion.h1 
+              initial={{ 
+                opacity: 0, 
+                y: 15, 
+                letterSpacing: "-0.04em",
+                textShadow: "0 0 0px rgba(212, 175, 55, 0)"
+              }}
+              animate={{ 
+                opacity: 1, 
+                y: 0, 
+                letterSpacing: "0.05em",
+                textShadow: [
+                  "0 0 0px rgba(212, 175, 55, 0)",
+                  "0 0 16px rgba(212, 175, 55, 0.45)",
+                  "0 0 2px rgba(212, 175, 55, 0.15)"
+                ]
+              }}
+              transition={{ 
+                duration: 1.4, 
+                ease: [0.16, 1, 0.3, 1],
+                textShadow: { duration: 1.8, ease: "easeOut" }
+              }}
+              className="text-3xl font-extrabold uppercase leading-none animate-gold-shine text-center flex flex-col items-center"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Royal India
-            </h1>
-            <h1 
-              className="text-3xl font-extrabold tracking-wider uppercase bg-gradient-to-r from-[#C84B31] via-[#D4AF37] to-[#8C5D3A] bg-clip-text text-transparent leading-none mt-1"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+              <span>Royal India</span>
+              <span className="mt-1">Spoon</span>
+            </motion.h1>
+            <motion.div 
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 0.8, scaleX: 1 }}
+              transition={{ 
+                delay: 0.4, 
+                duration: 1.0, 
+                ease: [0.16, 1, 0.3, 1] 
+              }}
+              className="flex items-center gap-2.5 w-full max-w-[185px] mt-2 origin-center"
             >
-              Spoon
-            </h1>
-            <div className="flex items-center gap-2.5 w-full max-w-[185px] mt-2 opacity-80">
               <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C89D5E]" />
               <svg className="w-4 h-4 text-[#C89D5E] animate-pulse" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2a10 10 0 0 1 2.5 6.5A10 10 0 0 1 12 15a10 10 0 0 1-2.5-6.5A10 10 0 0 1 12 2zm0 13a7 7 0 0 1 2 4.5A7 7 0 0 1 12 24a7 7 0 0 1-2-4.5A7 7 0 0 1 12 15zm-5-6a7 7 0 0 1 4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1-4.5 2A7 7 0 0 1 7 9.5zm10 0a7 7 0 0 1-4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1 4.5 2A7 7 0 0 1 17 9.5z" opacity="0.85" />
               </svg>
               <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]" />
-            </div>
+            </motion.div>
           </div>
         </div>
 

@@ -33,3 +33,28 @@ body {
   color: #1a1a17;
 }
 
+@utility animate-gold-shine {
+  background: linear-gradient(
+    120deg,
+    #C84B31 0%,
+    #D4AF37 25%,
+    #ffffff 50%,
+    #D4AF37 75%,
+    #8C5D3A 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shine 5s linear infinite;
+}
+
+@keyframes gold-shine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+

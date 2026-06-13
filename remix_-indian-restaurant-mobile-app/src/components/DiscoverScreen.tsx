@@ -142,21 +142,48 @@ export default function DiscoverScreen({
       >
         <motion.h1 
           variants={{
-            hidden: { opacity: 0, y: 15, scale: 0.95 },
-            show: { 
-              opacity: 1, 
-              y: 0, 
-              scale: 1,
-              transition: { 
-                duration: 1.0, 
-                ease: [0.16, 1, 0.3, 1] 
-              } 
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.04,
+                delayChildren: 0.1
+              }
             }
           }}
-          className="text-4xl font-extrabold tracking-wide uppercase bg-gradient-to-r from-[#C84B31] via-[#D4AF37] to-[#8C5D3A] bg-clip-text text-transparent drop-shadow-xs"
+          className="text-4xl font-extrabold tracking-wide uppercase drop-shadow-xs animate-gold-shine text-center flex flex-wrap justify-center gap-x-3 gap-y-1"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Royal India Spoon
+          {"Royal India Spoon".toUpperCase().split(" ").map((word, wordIndex) => (
+            <span key={wordIndex} className="inline-block whitespace-nowrap flex">
+              {word.split("").map((char, charIndex) => (
+                <motion.span
+                  key={charIndex}
+                  variants={{
+                    hidden: { 
+                      opacity: 0, 
+                      y: 35,
+                      rotate: 15,
+                      scale: 0.8
+                    },
+                    show: { 
+                      opacity: 1, 
+                      y: 0, 
+                      rotate: 0, 
+                      scale: 1,
+                      transition: { 
+                        type: "spring",
+                        damping: 10,
+                        stiffness: 110
+                      } 
+                    }
+                  }}
+                  className="inline-block origin-bottom-left"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ))}
         </motion.h1>
         <motion.div 
           variants={{

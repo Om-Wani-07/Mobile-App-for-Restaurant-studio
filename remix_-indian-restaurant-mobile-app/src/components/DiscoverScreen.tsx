@@ -111,7 +111,7 @@ export default function DiscoverScreen({
       clearTimeout(timer);
       window.removeEventListener("resize", calculateConstraints);
     };
-  }, [filteredSpecials]);
+  }, [specials, selectedCuisineFilter, restaurants]);
 
   // Filter restaurants
   const filteredRestaurants = restaurants.filter(r => {

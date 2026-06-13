@@ -37,9 +37,7 @@ body {
   background: linear-gradient(
     120deg,
     #C84B31 0%,
-    #D4AF37 25%,
-    #ffffff 50%,
-    #D4AF37 75%,
+    #D4AF37 50%,
     #8C5D3A 100%
   );
   background-size: 200% auto;

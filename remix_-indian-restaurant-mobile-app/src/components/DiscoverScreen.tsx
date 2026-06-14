@@ -389,6 +389,11 @@ export default function DiscoverScreen({
                   y: -4, 
                   boxShadow: "0 12px 20px -8px rgba(200, 157, 94, 0.25)" 
                 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 25
+                }}
                 whileTap={{ 
                   scale: 1.06, 
                   y: -6,
@@ -400,7 +405,7 @@ export default function DiscoverScreen({
                   }
                 }}
                 onClick={() => handleSelectDish(item)}
-                className="bg-white rounded-2xl border border-amber-300 p-3.5 flex flex-col gap-2 w-60 h-[175px] shrink-0 cursor-pointer group select-none ring-2 ring-amber-500/5 bg-amber-50/5 hover:border-amber-500 transition-all"
+                className="bg-white rounded-2xl border border-amber-300 p-3.5 flex flex-col gap-2 w-60 h-[175px] shrink-0 cursor-pointer group select-none ring-2 ring-amber-500/5 bg-amber-50/5 hover:border-amber-500 transition-colors duration-300"
               >
                 {/* Special Tag badge */}
                 <div className="flex justify-between items-center">

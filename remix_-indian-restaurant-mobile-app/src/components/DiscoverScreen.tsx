@@ -377,7 +377,7 @@ export default function DiscoverScreen({
         {/* Outer Carousel Container */}
         <div 
           ref={carouselRef} 
-          className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 cursor-grab flex gap-4 pb-3 select-none"
+          className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 pt-2 cursor-grab flex gap-4 pb-3 select-none"
         >
           {filteredSpecials.map(item => {
             const associatedRest = restaurants.find(r => r.id === item.restaurantId);

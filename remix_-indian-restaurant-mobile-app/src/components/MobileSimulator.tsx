@@ -42,6 +42,14 @@ export default function MobileSimulator({
   children
 }: MobileSimulatorProps) {
   const [time, setTime] = useState("");
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -296,6 +304,191 @@ export default function MobileSimulator({
         <div className="w-full bg-white py-1.5 flex justify-center items-center z-50 shrink-0">
           <div className="w-28 h-1 bg-gray-300 rounded-full" />
         </div>
+
+        {/* Splash screen overlay */}
+        <AnimatePresence>
+          {showSplash && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ 
+                opacity: 0, 
+                scale: 1.08, 
+                filter: "blur(8px)",
+                transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] } 
+              }}
+              className="absolute inset-3 rounded-[38px] z-50 overflow-hidden bg-gradient-to-b from-[#3B0E17] via-[#1E0509] to-[#0D0002] flex flex-col items-center justify-center p-6 select-none"
+            >
+              {/* Luxury gold dust particles background */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.08)_0%,transparent_70%)] pointer-events-none" />
+
+              {/* Ornate Mandala rotating and scaling */}
+              <motion.div
+                initial={{ rotate: -90, scale: 0.8, opacity: 0 }}
+                animate={{ 
+                  rotate: 0, 
+                  scale: 1, 
+                  opacity: 0.95,
+                  transition: {
+                    rotate: { type: "spring", stiffness: 40, damping: 12 },
+                    scale: { type: "spring", stiffness: 50, damping: 10 },
+                    opacity: { duration: 1.2 }
+                  }
+                }}
+                className="w-48 h-48 flex items-center justify-center relative mb-8"
+              >
+                {/* Custom SVG Golden Mandala */}
+                <svg className="w-full h-full text-amber-400/80 drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                  {/* Outer delicate petals */}
+                  {Array.from({ length: 24 }).map((_, i) => {
+                    const angle = (i * 360) / 24;
+                    return (
+                      <path
+                        key={`petal-${i}`}
+                        d="M50 50 C45 30 45 10 50 5 C55 10 55 30 50 50"
+                        transform={`rotate(${angle} 50 50)`}
+                        strokeWidth="0.4"
+                        opacity="0.7"
+                      />
+                    );
+                  })}
+                  {/* Middle sharp rays */}
+                  {Array.from({ length: 16 }).map((_, i) => {
+                    const angle = (i * 360) / 16;
+                    return (
+                      <path
+                        key={`ray-${i}`}
+                        d="M50 50 L50 20 L53 30 L50 50"
+                        transform={`rotate(${angle + 11.25} 50 50)`}
+                        strokeWidth="0.5"
+                        fill="currentColor"
+                        opacity="0.25"
+                      />
+                    );
+                  })}
+                  {/* Concentric ornate rings */}
+                  <circle cx="50" cy="50" r="38" strokeWidth="0.6" strokeDasharray="2,2" opacity="0.6" />
+                  <circle cx="50" cy="50" r="30" strokeWidth="0.5" opacity="0.8" />
+                  <circle cx="50" cy="50" r="22" strokeWidth="0.4" strokeDasharray="1,1" opacity="0.5" />
+                  <circle cx="50" cy="50" r="14" strokeWidth="0.8" opacity="0.9" />
+                  <circle cx="50" cy="50" r="6" strokeWidth="0.5" fill="currentColor" opacity="0.4" />
+                  {/* Inner small details */}
+                  {Array.from({ length: 8 }).map((_, i) => {
+                    const angle = (i * 360) / 8;
+                    return (
+                      <circle
+                        key={`dot-${i}`}
+                        cx="50"
+                        cy="26"
+                        r="0.8"
+                        transform={`rotate(${angle} 50 50)`}
+                        fill="currentColor"
+                        opacity="0.9"
+                      />
+                    );
+                  })}
+                </svg>
+
+                {/* Center glowing golden dot */}
+                <div className="absolute w-2 h-2 rounded-full bg-yellow-300 blur-[2px]" />
+              </motion.div>
+
+              {/* Title & Brand Reveal */}
+              <div className="flex flex-col items-center gap-3 text-center z-10 w-[260px]">
+                {/* Brand Name with letter-by-letter animation */}
+                <motion.h1 
+                  className="text-3xl font-extrabold tracking-[0.2em] uppercase text-amber-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.08,
+                        delayChildren: 0.6
+                      }
+                    }
+                  }}
+                >
+                  {/* Animated Letters */}
+                  {["S", "A", "F", "F", "R", "O", "N"].map((char, index) => (
+                    <motion.span
+                      key={index}
+                      variants={{
+                        hidden: { opacity: 0, y: 15, scale: 0.8 },
+                        visible: { 
+                          opacity: 1, 
+                          y: 0, 
+                          scale: 1,
+                          transition: { type: "spring", stiffness: 200, damping: 15 }
+                        }
+                      }}
+                      className="inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </motion.h1>
+
+                {/* Subtitle brand */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { delay: 1.4, duration: 0.8, ease: "easeOut" }
+                  }}
+                  className="flex items-center gap-3 w-full"
+                >
+                  <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent to-amber-300/40" />
+                  <span className="text-[9px] uppercase font-bold tracking-[0.3em] text-amber-200/80 font-mono">
+                    The Spoon
+                  </span>
+                  <div className="h-[0.5px] flex-1 bg-gradient-to-l from-transparent to-amber-300/40" />
+                </motion.div>
+
+                {/* Tagline */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 0.7,
+                    transition: { delay: 1.9, duration: 1.0 }
+                  }}
+                  className="text-[10px] text-amber-100/70 italic tracking-wider mt-1.5"
+                >
+                  Imperial Indian Gastronomy
+                </motion.p>
+              </div>
+
+              {/* Ornate Loader at the bottom */}
+              <div className="absolute bottom-16 flex flex-col items-center gap-2">
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { delay: 2.2 } }}
+                  className="w-24 h-0.5 bg-amber-950/40 rounded-full overflow-hidden relative"
+                >
+                  <motion.div 
+                    initial={{ left: "-100%" }}
+                    animate={{ left: "100%" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.5,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute top-0 bottom-0 w-12 bg-gradient-to-r from-transparent via-amber-400 to-transparent"
+                  />
+                </motion.div>
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.4, transition: { delay: 2.2 } }}
+                  className="text-[8px] font-bold font-mono tracking-[0.2em] text-amber-200/50 uppercase"
+                >
+                  Preparing Feast...
+                </motion.span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       
       {/* Quick environment info */}

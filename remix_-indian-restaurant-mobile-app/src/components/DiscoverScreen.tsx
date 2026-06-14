@@ -360,55 +360,17 @@ export default function DiscoverScreen({
 
       {/* Chef's Curated Masterpiece Specials (Horizontal Slider) */}
       <div className="flex flex-col gap-3 mt-1 shrink-0">
-        <div className="flex flex-col gap-1 pb-1 border-b border-amber-100/50 shrink-0">
-          <div className="flex items-center gap-3">
-            {/* Custom Indian Diya (traditional oil lamp) SVG with flickering flame */}
-            <svg className="w-9 h-9 shrink-0 select-none" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="flameGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#FFFBE6" />
-                  <stop offset="25%" stopColor="#FFD54F" />
-                  <stop offset="65%" stopColor="#FF5722" />
-                  <stop offset="100%" stopColor="#E64A19" stopOpacity="0" />
-                </radialGradient>
-                <linearGradient id="diyaGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#C89D5E" />
-                  <stop offset="45%" stopColor="#F3DCA2" />
-                  <stop offset="100%" stopColor="#8C5D3A" />
-                </linearGradient>
-              </defs>
-              {/* Flickering flame */}
-              <g className="animate-flame-flicker origin-[50px_52px]">
-                <path d="M50 12 C55 28, 64 40, 50 54 C36 40, 45 28, 50 12 Z" fill="url(#flameGrad)" />
-                <path d="M50 22 C52 31, 58 38, 50 46 C42 38, 48 31, 50 22 Z" fill="#FFF2a3" />
-                <path d="M50 30 C51 36, 54 40, 50 43 C46 40, 49 36, 50 30 Z" fill="#FF5722" />
-              </g>
-              {/* Diya Base */}
-              <path d="M12 55 C12 76, 88 76, 88 55 C88 55, 76 57, 50 57 C24 57, 12 55, 12 55 Z" fill="url(#diyaGoldGrad)" stroke="#5A3A1A" strokeWidth="1.5" />
-              <path d="M38 71 C38 78, 62 78, 62 71 Z" fill="#5A3A1A" />
-              <ellipse cx="50" cy="74" rx="22" ry="4.5" fill="url(#diyaGoldGrad)" stroke="#5A3A1A" strokeWidth="1" />
-              <path d="M22 61 C32 66, 68 66, 78 61" stroke="#F9DF95" strokeWidth="2" strokeLinecap="round" />
-              <circle cx="50" cy="64" r="2.5" fill="#F9DF95" />
-              <circle cx="36" cy="62.5" r="2" fill="#F9DF95" />
-              <circle cx="64" cy="62.5" r="2" fill="#F9DF95" />
+        <div className="flex items-center justify-between pb-1 border-b border-amber-100/50">
+          <h2 
+            className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            <span>Chef&apos;s Signature Specials</span>
+            {/* Traditional Ornate Lotus motif */}
+            <svg className="w-5 h-5 text-[#C89D5E] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21a9.004 9.004 0 0 1-6.195-2.47c1.233-1.464 2.87-2.613 4.695-3.34V13.5a1.5 1.5 0 0 1 3 0v1.69c1.825.727 3.462 1.876 4.695 3.34A9.004 9.004 0 0 1 12 21Zm7.35-4.48c-1.378-2.222-3.662-3.83-6.35-4.398v-3.79c1.173-.414 2.15-1.282 2.65-2.432.842 1.053 2.146 1.706 3.65 1.706.702 0 1.353-.14 1.95-.398a8.956 8.956 0 0 1-1.9 9.312ZM4.65 16.52A8.956 8.956 0 0 1 2.75 7.208c.597.258 1.248.398 1.95.398 1.504 0 2.808-.653 3.65-1.706.5 1.15 1.477 2.018 2.65 2.432v3.79c-2.688.568-4.972 2.176-6.35 4.398ZM12 8.5c-.828 0-1.5-.672-1.5-1.5a4.5 4.5 0 1 1 9 0c0 .828-.672 1.5-1.5 1.5h-6Z"/>
             </svg>
-            
-            <div className="flex flex-col">
-              <h2 
-                className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                <span>Chef&apos;s Signature Specials</span>
-                {/* Traditional Ornate Lotus motif */}
-                <svg className="w-5 h-5 text-[#C89D5E] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 21a9.004 9.004 0 0 1-6.195-2.47c1.233-1.464 2.87-2.613 4.695-3.34V13.5a1.5 1.5 0 0 1 3 0v1.69c1.825.727 3.462 1.876 4.695 3.34A9.004 9.004 0 0 1 12 21Zm7.35-4.48c-1.378-2.222-3.662-3.83-6.35-4.398v-3.79c1.173-.414 2.15-1.282 2.65-2.432.842 1.053 2.146 1.706 3.65 1.706.702 0 1.353-.14 1.95-.398a8.956 8.956 0 0 1-1.9 9.312ZM4.65 16.52A8.956 8.956 0 0 1 2.75 7.208c.597.258 1.248.398 1.95.398 1.504 0 2.808-.653 3.65-1.706.5 1.15 1.477 2.018 2.65 2.432v3.79c-2.688.568-4.972 2.176-6.35 4.398ZM12 8.5c-.828 0-1.5-.672-1.5-1.5a4.5 4.5 0 1 1 9 0c0 .828-.672 1.5-1.5 1.5h-6Z"/>
-                </svg>
-              </h2>
-              <span className="text-[10px] text-[#A0522D] font-semibold tracking-wider font-sans uppercase">
-                Handcrafted royal delicacies with secret spices
-              </span>
-            </div>
-          </div>
+          </h2>
         </div>
 
         {/* Outer Carousel Container */}
@@ -477,57 +439,17 @@ export default function DiscoverScreen({
 
       {/* Restaurant List Section */}
       <div className="flex flex-col gap-3">
-        <div className="flex flex-col gap-1 pb-1 border-b border-amber-100/50 shrink-0">
-          <div className="flex items-center gap-3">
-            {/* Custom Indian Copper Handi / Clay Pot SVG */}
-            <svg className="w-9 h-9 shrink-0 select-none" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#8B4513" />
-                  <stop offset="35%" stopColor="#CD853F" />
-                  <stop offset="70%" stopColor="#F4A460" />
-                  <stop offset="100%" stopColor="#A0522D" />
-                </linearGradient>
-                <linearGradient id="accentGold" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#D4AF37" />
-                  <stop offset="50%" stopColor="#FFF2A3" />
-                  <stop offset="100%" stopColor="#C89D5E" />
-                </linearGradient>
-              </defs>
-              {/* Steam waves */}
-              <g className="opacity-70">
-                <path d="M42 22 C40 16, 44 14, 42 8" stroke="#CD853F" strokeWidth="1.5" strokeLinecap="round" fill="none" className="animate-pulse" />
-                <path d="M50 24 C48 18, 52 16, 50 10" stroke="#CD853F" strokeWidth="1.5" strokeLinecap="round" fill="none" className="animate-pulse delay-75" />
-                <path d="M58 22 C56 16, 60 14, 58 8" stroke="#CD853F" strokeWidth="1.5" strokeLinecap="round" fill="none" className="animate-pulse delay-150" />
-              </g>
-              {/* Handi Pot Body */}
-              <ellipse cx="50" cy="32" rx="28" ry="5.5" fill="url(#accentGold)" stroke="#5A3A1A" strokeWidth="1.5" />
-              <path d="M25 33 C25 40, 75 40, 75 33" stroke="#5A3A1A" strokeWidth="1.5" fill="none" />
-              <path d="M22 34 C16 48, 20 68, 50 68 C80 68, 84 48, 78 34" fill="url(#copperGrad)" stroke="#5A3A1A" strokeWidth="1.5" />
-              <path d="M19.5 48 C28 55, 72 55, 80.5 48" stroke="url(#accentGold)" strokeWidth="3" strokeLinecap="round" fill="none" />
-              <path d="M22 49 C30 56, 70 56, 78 49" stroke="#8B4513" strokeWidth="1" strokeDasharray="3 3" fill="none" />
-              <path d="M18 40 C12 42, 12 48, 19 50" stroke="url(#accentGold)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-              <path d="M82 40 C88 42, 88 48, 81 50" stroke="url(#accentGold)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-              <ellipse cx="50" cy="67" rx="18" ry="3.5" fill="#5A3A1A" />
-              <ellipse cx="50" cy="66" rx="16" ry="3" fill="url(#accentGold)" />
+        <div className="flex items-center justify-between pb-1 border-b border-amber-100/50">
+          <h2 
+            className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            <span>Chef&apos;s Gourmet Kitchen spots</span>
+            {/* Traditional Ornate Lotus motif */}
+            <svg className="w-5 h-5 text-[#C89D5E] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21a9.004 9.004 0 0 1-6.195-2.47c1.233-1.464 2.87-2.613 4.695-3.34V13.5a1.5 1.5 0 0 1 3 0v1.69c1.825.727 3.462 1.876 4.695 3.34A9.004 9.004 0 0 1 12 21Zm7.35-4.48c-1.378-2.222-3.662-3.83-6.35-4.398v-3.79c1.173-.414 2.15-1.282 2.65-2.432.842 1.053 2.146 1.706 3.65 1.706.702 0 1.353-.14 1.95-.398a8.956 8.956 0 0 1-1.9 9.312ZM4.65 16.52A8.956 8.956 0 0 1 2.75 7.208c.597.258 1.248.398 1.95.398 1.504 0 2.808-.653 3.65-1.706.5 1.15 1.477 2.018 2.65 2.432v3.79c-2.688.568-4.972 2.176-6.35 4.398ZM12 8.5c-.828 0-1.5-.672-1.5-1.5a4.5 4.5 0 1 1 9 0c0 .828-.672 1.5-1.5 1.5h-6Z"/>
             </svg>
-            
-            <div className="flex flex-col">
-              <h2 
-                className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                <span>Chef&apos;s Gourmet Kitchen spots</span>
-                {/* Traditional Ornate Lotus motif */}
-                <svg className="w-5 h-5 text-[#C89D5E] shrink-0 self-center ml-0.5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 21a9.004 9.004 0 0 1-6.195-2.47c1.233-1.464 2.87-2.613 4.695-3.34V13.5a1.5 1.5 0 0 1 3 0v1.69c1.825.727 3.462 1.876 4.695 3.34A9.004 9.004 0 0 1 12 21Zm7.35-4.48c-1.378-2.222-3.662-3.83-6.35-4.398v-3.79c1.173-.414 2.15-1.282 2.65-2.432.842 1.053 2.146 1.706 3.65 1.706.702 0 1.353-.14 1.95-.398a8.956 8.956 0 0 1-1.9 9.312ZM4.65 16.52A8.956 8.956 0 0 1 2.75 7.208c.597.258 1.248.398 1.95.398 1.504 0 2.808-.653 3.65-1.706.5 1.15 1.477 2.018 2.65 2.432v3.79c-2.688.568-4.972 2.176-6.35 4.398ZM12 8.5c-.828 0-1.5-.672-1.5-1.5a4.5 4.5 0 1 1 9 0c0 .828-.672 1.5-1.5 1.5h-6Z"/>
-                </svg>
-              </h2>
-              <span className="text-[10px] text-[#A0522D] font-semibold tracking-wider font-sans uppercase">
-                Handpicked dining destinations serving regional classics
-              </span>
-            </div>
-          </div>
+          </h2>
         </div>
 
         {filteredRestaurants.length === 0 ? (

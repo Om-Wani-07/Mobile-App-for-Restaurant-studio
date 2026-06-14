@@ -396,7 +396,7 @@ export default function MobileSimulator({
               <div className="flex flex-col items-center gap-3 text-center z-10 w-[260px]">
                 {/* Brand Name with letter-by-letter animation */}
                 <motion.h1 
-                  className="text-3xl font-extrabold tracking-[0.2em] uppercase text-amber-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+                  className="text-3xl font-extrabold tracking-[0.15em] uppercase text-amber-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] whitespace-nowrap"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                   initial="hidden"
                   animate="visible"
@@ -411,7 +411,7 @@ export default function MobileSimulator({
                   }}
                 >
                   {/* Animated Letters */}
-                  {["S", "A", "F", "F", "R", "O", "N"].map((char, index) => (
+                  {["R", "O", "Y", "A", "L", " ", "I", "N", "D", "I", "A"].map((char, index) => (
                     <motion.span
                       key={index}
                       variants={{
@@ -425,7 +425,7 @@ export default function MobileSimulator({
                       }}
                       className="inline-block"
                     >
-                      {char}
+                      {char === " " ? "\u00A0" : char}
                     </motion.span>
                   ))}
                 </motion.h1>
@@ -436,13 +436,13 @@ export default function MobileSimulator({
                   animate={{ 
                     opacity: 1, 
                     y: 0,
-                    transition: { delay: 1.4, duration: 0.8, ease: "easeOut" }
+                    transition: { delay: 1.6, duration: 0.8, ease: "easeOut" }
                   }}
                   className="flex items-center gap-3 w-full"
                 >
                   <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent to-amber-300/40" />
-                  <span className="text-[9px] uppercase font-bold tracking-[0.3em] text-amber-200/80 font-mono">
-                    The Spoon
+                  <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-amber-200/80 font-mono">
+                    Spoon
                   </span>
                   <div className="h-[0.5px] flex-1 bg-gradient-to-l from-transparent to-amber-300/40" />
                 </motion.div>

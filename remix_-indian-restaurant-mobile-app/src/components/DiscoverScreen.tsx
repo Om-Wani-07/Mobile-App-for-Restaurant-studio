@@ -364,7 +364,7 @@ export default function DiscoverScreen({
           <img 
             src="/images/chef-emoji.png" 
             alt="Chef Emoji" 
-            className="w-7 h-7 object-contain shrink-0 select-none"
+            className="w-8 h-8 object-contain shrink-0 select-none"
           />
           <h2 
             className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"
@@ -449,7 +449,7 @@ export default function DiscoverScreen({
           <img 
             src="/images/dish-emoji.png" 
             alt="Dish Emoji" 
-            className="w-7 h-7 object-contain shrink-0 select-none"
+            className="w-8 h-8 object-contain shrink-0 select-none"
           />
           <h2 
             className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"

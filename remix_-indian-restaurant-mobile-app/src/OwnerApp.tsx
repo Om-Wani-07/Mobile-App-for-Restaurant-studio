@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   TrendingUp, 
   ShoppingBag, 
@@ -370,12 +370,31 @@ export default function OwnerApp() {
       <main className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto max-w-7xl w-full mx-auto relative z-20">
         
         {/* Metric Cards: Warm Ivory, Slate Text, Gold Linings */}
-        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 select-none shrink-0">
-          <div className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group">
+        <motion.section 
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.08
+              }
+            }
+          }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 select-none shrink-0"
+        >
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 15, scale: 0.96 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+            }}
+            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
+          >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-emerald-500/5 to-transparent pointer-events-none" />
             <div className="flex justify-between items-center text-slate-500">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono">Darbar Revenue</span>
-              <TrendingUp size={16} className="text-emerald-600" />
+              <TrendingUp size={16} className="text-emerald-600 animate-bounce" style={{ animationDuration: "3s" }} />
             </div>
             <span className="text-2xl font-mono font-black text-[#1E1412] leading-none">
               ₹{totalRevenue.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
@@ -383,9 +402,16 @@ export default function OwnerApp() {
             <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
               Live updates active
             </span>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 15, scale: 0.96 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+            }}
+            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
+          >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-amber-500/5 to-transparent pointer-events-none" />
             <div className="flex justify-between items-center text-slate-500">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono">Tandoors Active</span>
@@ -397,9 +423,16 @@ export default function OwnerApp() {
             <span className="text-[10px] text-[#C84B31] font-bold uppercase tracking-wider">
               Pending Prep
             </span>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 15, scale: 0.96 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+            }}
+            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
+          >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-blue-500/5 to-transparent pointer-events-none" />
             <div className="flex justify-between items-center text-slate-500">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono">Seating Capacity</span>
@@ -409,14 +442,23 @@ export default function OwnerApp() {
               {seatedTablesCount} <span className="text-xs text-slate-500 font-normal">/ 12 Seated</span>
             </span>
             <div className="w-full bg-[#FAF7F2] rounded-full h-1.5 mt-1 border border-slate-200 overflow-hidden">
-              <div 
-                className="bg-gradient-to-r from-blue-600 to-blue-400 h-1.5 transition-all duration-500" 
-                style={{ width: `${(seatedTablesCount / 12) * 100}%` }}
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${(seatedTablesCount / 12) * 100}%` }}
+                className="bg-gradient-to-r from-blue-600 to-blue-400 h-1.5 rounded-full" 
+                transition={{ duration: 1.0, ease: "easeOut" }}
               />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 15, scale: 0.96 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+            }}
+            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
+          >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-indigo-500/5 to-transparent pointer-events-none" />
             <div className="flex justify-between items-center text-slate-500">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono">Gourmet Spots</span>
@@ -428,12 +470,21 @@ export default function OwnerApp() {
             <span className="text-[10px] text-[#C89D5E] font-semibold font-mono">
               Synchronized
             </span>
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
 
-        {/* TAB 1: DARBAR COMMAND CONSOLE */}
-        {activeDashboardTab === "command" && (
-          <>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeDashboardTab}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="flex-1 flex flex-col gap-6"
+          >
+            {/* TAB 1: DARBAR COMMAND CONSOLE */}
+            {activeDashboardTab === "command" && (
+              <>
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-0">
               {/* Left Column: Menu Inventory */}
               <section className="lg:col-span-6 bg-white rounded-3xl border border-[#E8DCC4] p-5 flex flex-col gap-4 min-h-[450px] shadow-[0_6px_25px_rgba(44,35,33,0.03)]">
@@ -969,19 +1020,36 @@ export default function OwnerApp() {
             </div>
 
             {/* Tables Grid layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.04
+                  }
+                }
+              }}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+            >
               {tablesOptions.map(table => {
                 const activeBooking = bookings.find(b => b.tableNumber === table && (b.status === "Confirmed" || b.status === "Seated"));
                 const status = activeBooking ? activeBooking.status : "Vacant";
 
                 return (
-                  <div 
+                  <motion.div 
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.95, y: 12 },
+                      visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 120, damping: 15 } }
+                    }}
+                    whileHover={{ scale: 1.015, boxShadow: "0 8px 25px rgba(44,35,33,0.04)" }}
                     key={table}
                     className={`rounded-2xl border p-4.5 flex flex-col justify-between min-h-[160px] transition-all relative overflow-hidden group ${
                       status === "Seated"
-                        ? "bg-purple-50/50 border-purple-200 text-purple-800 shadow-[0_4px_15px_rgba(147,51,234,0.04)]"
+                        ? "bg-purple-50/50 border-purple-200 text-[#2C2321] shadow-[0_4px_15px_rgba(147,51,234,0.04)]"
                         : status === "Confirmed"
-                        ? "bg-blue-50/50 border-blue-200 text-blue-800 shadow-[0_4px_15px_rgba(59,130,246,0.04)]"
+                        ? "bg-blue-50/50 border-blue-200 text-[#2C2321] shadow-[0_4px_15px_rgba(59,130,246,0.04)]"
                         : "bg-[#FAF7F2]/40 border-[#E8DCC4]/50 hover:border-[#C89D5E]/80 text-[#6E5D5A] hover:bg-white hover:shadow-md transition-all"
                     }`}
                   >
@@ -999,7 +1067,7 @@ export default function OwnerApp() {
                     </div>
 
                     {activeBooking ? (
-                      <div className="flex flex-col gap-1 mt-1 text-[11px]">
+                      <div className="flex flex-col gap-1 mt-1 text-[11px] text-slate-700">
                         <span className="font-bold text-[#2C2321] flex items-center gap-1.5">
                           <User size={11} className="text-slate-400" />
                           {activeBooking.guestName}
@@ -1018,7 +1086,7 @@ export default function OwnerApp() {
                       </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center py-4 text-center select-none text-[10px] text-slate-450">
-                        <Utensils size={18} className="text-slate-350 mb-1" />
+                        <Utensils size={18} className="text-slate-355 mb-1" />
                         <span>Ready for guests</span>
                       </div>
                     )}
@@ -1056,10 +1124,10 @@ export default function OwnerApp() {
                         </button>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* Quick Assign Modal */}
             {vacantTableModalId && (
@@ -1227,9 +1295,11 @@ export default function OwnerApp() {
                         <span className="text-[#C84B31]">{count} sold</span>
                       </div>
                       <div className="w-full bg-white rounded-full h-2.5 overflow-hidden border border-slate-200">
-                        <div 
-                          className="bg-gradient-to-r from-[#C84B31] to-[#C89D5E] h-2.5 rounded-full transition-all duration-700"
-                          style={{ width: `${(count / 30) * 100}%` }}
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(count / 30) * 100}%` }}
+                          transition={{ duration: 1.0, ease: "easeOut" }}
+                          className="bg-gradient-to-r from-[#C84B31] to-[#C89D5E] h-2.5 rounded-full"
                         />
                       </div>
                     </div>
@@ -1385,6 +1455,8 @@ export default function OwnerApp() {
             </div>
           </section>
         )}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Global Notice */}
         <footer className="bg-[#FFFDF9] border border-[#E8DCC4] rounded-2xl p-4 flex gap-3 text-xs text-[#8C5D3A] leading-relaxed select-none shrink-0 shadow-xs">

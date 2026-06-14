@@ -445,7 +445,12 @@ export default function DiscoverScreen({
 
       {/* Restaurant List Section */}
       <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between pb-1 border-b border-amber-100/50">
+        <div className="flex items-center gap-2 pb-1 border-b border-amber-100/50">
+          <img 
+            src="/images/dish-emoji.png" 
+            alt="Dish Emoji" 
+            className="w-7 h-7 object-contain shrink-0 select-none"
+          />
           <h2 
             className="text-[18px] font-extrabold text-[#4A1521] tracking-wide flex items-center gap-1.5 leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}

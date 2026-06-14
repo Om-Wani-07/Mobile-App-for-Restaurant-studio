@@ -42,6 +42,36 @@ export default function OwnerApp() {
     };
   }, []);
 
+  // --- Owner Dashboard Intro Splash Screen ---
+  const [showSplash, setShowSplash] = useState(true);
+  const [loadingStep, setLoadingStep] = useState("Connecting to royal kitchen...");
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    // Progress loader simulation
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 1.25;
+      });
+    }, 30);
+
+    // Text step updates
+    const t1 = setTimeout(() => setLoadingStep("Synchronizing banquet tables..."), 1000);
+    const t2 = setTimeout(() => setLoadingStep("Initializing AI Maharaja Advisor..."), 2000);
+    const t3 = setTimeout(() => setShowSplash(false), 3200);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, []);
+
   // --- Persistent Local Database State ---
   const [restaurants, setRestaurants] = useState<Restaurant[]>(() => {
     const saved = localStorage.getItem("rsl_restaurants");
@@ -258,6 +288,178 @@ export default function OwnerApp() {
       className="min-h-screen bg-[#FAF7F2] text-[#2C2321] flex flex-col font-sans relative overflow-x-hidden selection:bg-[#C84B31] selection:text-white"
       style={{ fontFamily: "'Outfit', sans-serif" }}
     >
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div 
+            key="owner-splash"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-50 bg-[#150D0C] flex flex-col items-center justify-center overflow-hidden"
+          >
+            {/* Subtle Royal Radial Pattern */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,157,94,0.06)_0%,transparent_70%)] pointer-events-none" />
+
+            {/* Rotating Seal / Mandala */}
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0, rotate: -45 }}
+              animate={{ 
+                scale: 1, 
+                opacity: 0.95, 
+                rotate: 0,
+                transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+              }}
+              className="w-36 h-36 mb-8 text-[#C89D5E] relative flex items-center justify-center"
+            >
+              {/* Spinning outer mandala rings */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 24, ease: "linear" }}
+                className="absolute inset-0"
+              >
+                <svg className="w-full h-full opacity-65" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                  <circle cx="50" cy="50" r="46" strokeWidth="0.5" strokeDasharray="3,3" />
+                  <circle cx="50" cy="50" r="40" strokeWidth="0.75" />
+                  <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="1,1" />
+                  {Array.from({ length: 16 }).map((_, i) => {
+                    const angle = (i * 360) / 16;
+                    return (
+                      <line
+                        key={`line-${i}`}
+                        x1="50"
+                        y1="10"
+                        x2="50"
+                        y2="18"
+                        transform={`rotate(${angle} 50 50)`}
+                        strokeWidth="0.75"
+                      />
+                    );
+                  })}
+                </svg>
+              </motion.div>
+
+              {/* Counter-spinning inner ring */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
+                className="absolute w-24 h-24"
+              >
+                <svg className="w-full h-full opacity-80" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                  <circle cx="50" cy="50" r="38" strokeWidth="0.5" strokeDasharray="2,2" />
+                  <circle cx="50" cy="50" r="28" strokeWidth="0.9" />
+                  {Array.from({ length: 8 }).map((_, i) => {
+                    const angle = (i * 360) / 8;
+                    return (
+                      <circle
+                        key={`inner-dot-${i}`}
+                        cx="50"
+                        cy="22"
+                        r="1.2"
+                        transform={`rotate(${angle} 50 50)`}
+                        fill="currentColor"
+                      />
+                    );
+                  })}
+                </svg>
+              </motion.div>
+
+              {/* Static Royal Crown/Lotus SVG in Center */}
+              <svg className="w-10 h-10 text-[#C89D5E] drop-shadow-[0_0_8px_rgba(200,157,94,0.4)]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2a10 10 0 0 1 2.5 6.5A10 10 0 0 1 12 15a10 10 0 0 1-2.5-6.5A10 10 0 0 1 12 2zm0 13a7 7 0 0 1 2 4.5A7 7 0 0 1 12 24a7 7 0 0 1-2-4.5A7 7 0 0 1 12 15zm-5-6a7 7 0 0 1 4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1-4.5 2A7 7 0 0 1 7 9.5zm10 0a7 7 0 0 1-4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1 4.5 2A7 7 0 0 1 17 9.5z" />
+              </svg>
+            </motion.div>
+
+            {/* Brand Title Reveal */}
+            <div className="flex flex-col items-center gap-3 text-center z-10 w-[300px] select-none">
+              <motion.h1 
+                className="text-4xl font-extrabold tracking-[0.18em] uppercase text-[#FAF7F2] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] whitespace-nowrap"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.06,
+                      delayChildren: 0.4
+                    }
+                  }
+                }}
+              >
+                {["R", "O", "Y", "A", "L", " ", "I", "N", "D", "I", "A"].map((char, index) => (
+                  <motion.span
+                    key={index}
+                    variants={{
+                      hidden: { opacity: 0, y: 15, scale: 0.8 },
+                      visible: { 
+                        opacity: 1, 
+                        y: 0, 
+                        scale: 1,
+                        transition: { type: "spring", stiffness: 200, damping: 15 }
+                      }
+                    }}
+                    className="inline-block"
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </motion.h1>
+
+              {/* Subtitle brand */}
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ 
+                  opacity: 1, 
+                  scaleX: 1,
+                  transition: { delay: 1.2, duration: 0.8, ease: "easeOut" }
+                }}
+                className="flex items-center gap-3 w-full origin-center"
+              >
+                <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent to-[#C89D5E]/60" />
+                <span className="text-[10px] uppercase font-extrabold tracking-[0.25em] text-[#C89D5E] font-mono">
+                  Darbar Control Desk
+                </span>
+                <div className="h-[0.5px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]/60" />
+              </motion.div>
+
+              {/* Tagline */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: 0.6,
+                  transition: { delay: 1.5, duration: 1.0 }
+                }}
+                className="text-[10px] text-slate-400 font-medium tracking-wider mt-1"
+              >
+                Real-time backoffice & AI intelligence
+              </motion.p>
+            </div>
+
+            {/* Custom Progress Bar Loader at the bottom */}
+            <div className="absolute bottom-20 flex flex-col items-center gap-3 w-[260px]">
+              <div className="w-full h-1 bg-[#FAF7F2]/10 rounded-full overflow-hidden relative border border-white/5">
+                <motion.div 
+                  className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#C84B31] via-[#C89D5E] to-yellow-300"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              
+              {/* Dynamic steps label */}
+              <motion.span
+                key={loadingStep}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 0.7, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.3 }}
+                className="text-[9px] font-bold font-mono tracking-widest text-[#FAF7F2] opacity-70 uppercase text-center"
+              >
+                {loadingStep}
+              </motion.span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Top Header: Modern Glassmorphic Heritage Aesthetic */}
       <header className="bg-white/90 backdrop-blur-md border-b border-[#E8DCC4]/50 px-6 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[0_2px_15px_rgba(44,35,33,0.02)] select-none shrink-0 relative z-30">
         <div className="flex items-center gap-3.5 select-none py-1">

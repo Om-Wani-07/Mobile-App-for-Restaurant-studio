@@ -283,6 +283,62 @@ export default function OwnerApp() {
   const unansweredReviews = reviews.filter(r => r.restaurantId === selectedRestId && !r.chefResponse);
   const latestReview = reviews.filter(r => r.restaurantId === selectedRestId).sort((a, b) => b.id - a.id)[0];
 
+  // Animation Variants for Dashboard Entrance Reveal
+  const dashboardContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.15
+      }
+    }
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: -25 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { type: "spring", stiffness: 85, damping: 16 } 
+    }
+  };
+
+  const mainVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const metricsSectionVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.05,
+        type: "spring",
+        stiffness: 90,
+        damping: 15
+      }
+    }
+  };
+
+  const metricCardVariants = {
+    hidden: { opacity: 0, y: 15, scale: 0.96 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1, 
+      transition: { type: "spring", stiffness: 120, damping: 15 } 
+    }
+  };
+
   return (
     <div 
       className="min-h-screen bg-[#FAF7F2] text-[#2C2321] flex flex-col font-sans relative overflow-x-hidden selection:bg-[#C84B31] selection:text-white"
@@ -292,176 +348,239 @@ export default function OwnerApp() {
         {showSplash && (
           <motion.div 
             key="owner-splash"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-[#150D0C] flex flex-col items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-50 flex items-stretch justify-center overflow-hidden pointer-events-none"
           >
-            {/* Subtle Royal Radial Pattern */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,157,94,0.06)_0%,transparent_70%)] pointer-events-none" />
-
-            {/* Rotating Seal / Mandala */}
-            <motion.div 
-              initial={{ scale: 0.8, opacity: 0, rotate: -45 }}
-              animate={{ 
-                scale: 1, 
-                opacity: 0.95, 
-                rotate: 0,
-                transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
-              }}
-              className="w-36 h-36 mb-8 text-[#C89D5E] relative flex items-center justify-center"
+            {/* Split Palace Gates / Curtains */}
+            {/* Left Gate */}
+            <motion.div
+              initial={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+              className="absolute inset-y-0 left-0 w-1/2 bg-[#120A09] flex items-stretch justify-end overflow-hidden border-r border-[#C89D5E]/15"
             >
-              {/* Spinning outer mandala rings */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 24, ease: "linear" }}
-                className="absolute inset-0"
-              >
-                <svg className="w-full h-full opacity-65" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                  <circle cx="50" cy="50" r="46" strokeWidth="0.5" strokeDasharray="3,3" />
-                  <circle cx="50" cy="50" r="40" strokeWidth="0.75" />
-                  <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="1,1" />
-                  {Array.from({ length: 16 }).map((_, i) => {
-                    const angle = (i * 360) / 16;
-                    return (
-                      <line
-                        key={`line-${i}`}
-                        x1="50"
-                        y1="10"
-                        x2="50"
-                        y2="18"
-                        transform={`rotate(${angle} 50 50)`}
-                        strokeWidth="0.75"
-                      />
-                    );
-                  })}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(200,157,94,0.04)_0%,transparent_60%)] pointer-events-none" />
+              {/* Palace Arch Border Overlay */}
+              <div className="absolute inset-0 flex items-center justify-end pointer-events-none opacity-20">
+                <svg className="h-[120%] text-[#C89D5E] translate-x-1/2" fill="none" viewBox="0 0 100 800" stroke="currentColor" strokeWidth="0.5">
+                  <path d="M -50 0 C 0 150, 50 300, 50 400 C 50 500, 0 650, -50 800" />
+                  <path d="M -70 0 C -20 150, 30 300, 30 400 C 30 500, -20 650, -70 800" strokeDasharray="5 5" />
                 </svg>
-              </motion.div>
-
-              {/* Counter-spinning inner ring */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
-                className="absolute w-24 h-24"
-              >
-                <svg className="w-full h-full opacity-80" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                  <circle cx="50" cy="50" r="38" strokeWidth="0.5" strokeDasharray="2,2" />
-                  <circle cx="50" cy="50" r="28" strokeWidth="0.9" />
-                  {Array.from({ length: 8 }).map((_, i) => {
-                    const angle = (i * 360) / 8;
-                    return (
-                      <circle
-                        key={`inner-dot-${i}`}
-                        cx="50"
-                        cy="22"
-                        r="1.2"
-                        transform={`rotate(${angle} 50 50)`}
-                        fill="currentColor"
-                      />
-                    );
-                  })}
-                </svg>
-              </motion.div>
-
-              {/* Static Royal Crown/Lotus SVG in Center */}
-              <svg className="w-10 h-10 text-[#C89D5E] drop-shadow-[0_0_8px_rgba(200,157,94,0.4)]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2a10 10 0 0 1 2.5 6.5A10 10 0 0 1 12 15a10 10 0 0 1-2.5-6.5A10 10 0 0 1 12 2zm0 13a7 7 0 0 1 2 4.5A7 7 0 0 1 12 24a7 7 0 0 1-2-4.5A7 7 0 0 1 12 15zm-5-6a7 7 0 0 1 4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1-4.5 2A7 7 0 0 1 7 9.5zm10 0a7 7 0 0 1-4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1 4.5 2A7 7 0 0 1 17 9.5z" />
-              </svg>
+              </div>
+              <div className="w-[1.5px] h-full bg-gradient-to-b from-transparent via-[#C89D5E]/30 to-transparent relative z-10" />
             </motion.div>
 
-            {/* Brand Title Reveal */}
-            <div className="flex flex-col items-center gap-3 text-center z-10 w-[300px] select-none">
-              <motion.h1 
-                className="text-4xl font-extrabold tracking-[0.18em] uppercase text-[#FAF7F2] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] whitespace-nowrap"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {},
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.06,
-                      delayChildren: 0.4
-                    }
-                  }
-                }}
-              >
-                {["R", "O", "Y", "A", "L", " ", "I", "N", "D", "I", "A"].map((char, index) => (
-                  <motion.span
-                    key={index}
-                    variants={{
-                      hidden: { opacity: 0, y: 15, scale: 0.8 },
-                      visible: { 
-                        opacity: 1, 
-                        y: 0, 
-                        scale: 1,
-                        transition: { type: "spring", stiffness: 200, damping: 15 }
-                      }
-                    }}
-                    className="inline-block"
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
-                ))}
-              </motion.h1>
+            {/* Right Gate */}
+            <motion.div
+              initial={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+              className="absolute inset-y-0 right-0 w-1/2 bg-[#120A09] flex items-stretch justify-start overflow-hidden border-l border-[#C89D5E]/15"
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(200,157,94,0.04)_0%,transparent_60%)] pointer-events-none" />
+              {/* Palace Arch Border Overlay */}
+              <div className="absolute inset-0 flex items-center justify-start pointer-events-none opacity-20">
+                <svg className="h-[120%] text-[#C89D5E] -translate-x-1/2" fill="none" viewBox="0 0 100 800" stroke="currentColor" strokeWidth="0.5">
+                  <path d="M 150 0 C 100 150, 50 300, 50 400 C 50 500, 100 650, 150 800" />
+                  <path d="M 170 0 C 120 150, 70 300, 70 400 C 70 500, 120 650, 170 800" strokeDasharray="5 5" />
+                </svg>
+              </div>
+              <div className="w-[1.5px] h-full bg-gradient-to-b from-transparent via-[#C89D5E]/30 to-transparent relative z-10" />
+            </motion.div>
 
-              {/* Subtitle brand */}
-              <motion.div
-                initial={{ opacity: 0, scaleX: 0 }}
+            {/* Central Content */}
+            <motion.div
+              initial={{ opacity: 1, scale: 1 }}
+              exit={{ 
+                opacity: 0, 
+                scale: 0.9, 
+                filter: "blur(8px)",
+                transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } 
+              }}
+              className="relative z-10 flex flex-col items-center justify-center h-full pointer-events-auto"
+            >
+              {/* Glowing Radial Background */}
+              <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,rgba(200,157,94,0.08)_0%,transparent_65%)] pointer-events-none -translate-y-6" />
+
+              {/* Rotating Mandala */}
+              <motion.div 
+                initial={{ scale: 0.75, opacity: 0, rotate: -60 }}
                 animate={{ 
-                  opacity: 1, 
-                  scaleX: 1,
-                  transition: { delay: 1.2, duration: 0.8, ease: "easeOut" }
+                  scale: 1, 
+                  opacity: 0.95, 
+                  rotate: 0,
+                  transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1] }
                 }}
-                className="flex items-center gap-3 w-full origin-center"
+                className="w-36 h-36 mb-8 text-[#C89D5E] relative flex items-center justify-center"
               >
-                <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent to-[#C89D5E]/60" />
-                <span className="text-[10px] uppercase font-extrabold tracking-[0.25em] text-[#C89D5E] font-mono">
-                  Darbar Control Desk
-                </span>
-                <div className="h-[0.5px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]/60" />
+                {/* Spinning outer mandala rings */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                  className="absolute inset-0"
+                >
+                  <svg className="w-full h-full opacity-70" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <circle cx="50" cy="50" r="46" strokeWidth="0.5" strokeDasharray="3,3" />
+                    <circle cx="50" cy="50" r="40" strokeWidth="0.8" />
+                    <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="1,1" />
+                    {Array.from({ length: 16 }).map((_, i) => {
+                      const angle = (i * 360) / 16;
+                      return (
+                        <line
+                          key={`line-${i}`}
+                          x1="50"
+                          y1="10"
+                          x2="50"
+                          y2="18"
+                          transform={`rotate(${angle} 50 50)`}
+                          strokeWidth="0.75"
+                        />
+                      );
+                    })}
+                  </svg>
+                </motion.div>
+
+                {/* Counter-spinning inner ring */}
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+                  className="absolute w-24 h-24"
+                >
+                  <svg className="w-full h-full opacity-85" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <circle cx="50" cy="50" r="38" strokeWidth="0.5" strokeDasharray="2,2" />
+                    <circle cx="50" cy="50" r="28" strokeWidth="1.0" />
+                    {Array.from({ length: 8 }).map((_, i) => {
+                      const angle = (i * 360) / 8;
+                      return (
+                        <circle
+                          key={`inner-dot-${i}`}
+                          cx="50"
+                          cy="22"
+                          r="1.5"
+                          transform={`rotate(${angle} 50 50)`}
+                          fill="currentColor"
+                        />
+                      );
+                    })}
+                  </svg>
+                </motion.div>
+
+                {/* Static Royal Crown/Lotus SVG in Center */}
+                <svg className="w-12 h-12 text-[#C89D5E] drop-shadow-[0_0_12px_rgba(200,157,94,0.5)]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2a10 10 0 0 1 2.5 6.5A10 10 0 0 1 12 15a10 10 0 0 1-2.5-6.5A10 10 0 0 1 12 2zm0 13a7 7 0 0 1 2 4.5A7 7 0 0 1 12 24a7 7 0 0 1-2-4.5A7 7 0 0 1 12 15zm-5-6a7 7 0 0 1 4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1-4.5 2A7 7 0 0 1 7 9.5zm10 0a7 7 0 0 1-4.5-2A7 7 0 0 1 12 11.5a7 7 0 0 1 4.5 2A7 7 0 0 1 17 9.5z" />
+                </svg>
               </motion.div>
 
-              {/* Tagline */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: 0.6,
-                  transition: { delay: 1.5, duration: 1.0 }
-                }}
-                className="text-[10px] text-slate-400 font-medium tracking-wider mt-1"
-              >
-                Real-time backoffice & AI intelligence
-              </motion.p>
-            </div>
+              {/* Brand Title Reveal */}
+              <div className="flex flex-col items-center gap-3 text-center z-10 w-[320px] select-none">
+                <motion.h1 
+                  className="text-4.5xl font-extrabold tracking-[0.2em] uppercase text-[#FAF7F2] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] whitespace-nowrap"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.05,
+                        delayChildren: 0.3
+                      }
+                    }
+                  }}
+                >
+                  {["R", "O", "Y", "A", "L", " ", "I", "N", "D", "I", "A"].map((char, index) => (
+                    <motion.span
+                      key={index}
+                      variants={{
+                        hidden: { opacity: 0, y: 20, scale: 0.7, filter: "blur(4px)" },
+                        visible: { 
+                          opacity: 1, 
+                          y: 0, 
+                          scale: 1,
+                          filter: "blur(0px)",
+                          transition: { type: "spring", stiffness: 220, damping: 14 }
+                        }
+                      }}
+                      className="inline-block text-[#C89D5E]"
+                      style={{ 
+                        background: "linear-gradient(to bottom, #FAF7F2, #C89D5E)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent"
+                      }}
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </motion.span>
+                  ))}
+                </motion.h1>
 
-            {/* Custom Progress Bar Loader at the bottom */}
-            <div className="absolute bottom-20 flex flex-col items-center gap-3 w-[260px]">
-              <div className="w-full h-1 bg-[#FAF7F2]/10 rounded-full overflow-hidden relative border border-white/5">
-                <motion.div 
-                  className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#C84B31] via-[#C89D5E] to-yellow-300"
-                  style={{ width: `${progress}%` }}
-                />
+                {/* Subtitle brand */}
+                <motion.div
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scaleX: 1,
+                    transition: { delay: 1.0, duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+                  }}
+                  className="flex items-center gap-3 w-full origin-center"
+                >
+                  <div className="h-[0.5px] flex-1 bg-gradient-to-r from-transparent to-[#C89D5E]/60" />
+                  <span className="text-[10px] uppercase font-black tracking-[0.3em] text-[#C89D5E] font-mono">
+                    Darbar Control Desk
+                  </span>
+                  <div className="h-[0.5px] flex-1 bg-gradient-to-l from-transparent to-[#C89D5E]/60" />
+                </motion.div>
+
+                {/* Tagline */}
+                <motion.p
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ 
+                    opacity: 0.7,
+                    y: 0,
+                    transition: { delay: 1.3, duration: 0.8 }
+                  }}
+                  className="text-[10px] text-slate-400 font-semibold tracking-wider mt-1"
+                >
+                  Real-time backoffice & AI intelligence
+                </motion.p>
               </div>
-              
-              {/* Dynamic steps label */}
-              <motion.span
-                key={loadingStep}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 0.7, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                transition={{ duration: 0.3 }}
-                className="text-[9px] font-bold font-mono tracking-widest text-[#FAF7F2] opacity-70 uppercase text-center"
-              >
-                {loadingStep}
-              </motion.span>
-            </div>
+
+              {/* Custom Progress Bar Loader at the bottom */}
+              <div className="absolute bottom-20 flex flex-col items-center gap-3.5 w-[260px]">
+                <div className="w-full h-[3px] bg-[#FAF7F2]/10 rounded-full overflow-hidden relative border border-white/5">
+                  <motion.div 
+                    className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#C84B31] via-[#C89D5E] to-yellow-300 shadow-[0_0_8px_rgba(200,157,94,0.4)]"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                
+                {/* Dynamic steps label */}
+                <motion.span
+                  key={loadingStep}
+                  initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
+                  animate={{ opacity: 0.75, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-[9px] font-bold font-mono tracking-widest text-[#FAF7F2] opacity-75 uppercase text-center"
+                >
+                  {loadingStep}
+                </motion.span>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Top Header: Modern Glassmorphic Heritage Aesthetic */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-[#E8DCC4]/50 px-6 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[0_2px_15px_rgba(44,35,33,0.02)] select-none shrink-0 relative z-30">
+      {/* Main Dashboard Content Wrapper with staggered entrance animation */}
+      <motion.div
+        initial="hidden"
+        animate={showSplash ? "hidden" : "visible"}
+        variants={dashboardContainerVariants}
+        className="flex-1 flex flex-col min-h-screen"
+      >
+        {/* Top Header: Modern Glassmorphic Heritage Aesthetic */}
+        <motion.header 
+          variants={headerVariants}
+          className="bg-white/90 backdrop-blur-md border-b border-[#E8DCC4]/50 px-6 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[0_2px_15px_rgba(44,35,33,0.02)] select-none shrink-0 relative z-30"
+        >
         <div className="flex items-center gap-3.5 select-none py-1">
           <div className="flex flex-col items-center justify-center text-center select-none">
             <motion.h1 
@@ -566,31 +685,22 @@ export default function OwnerApp() {
           <LogOut size={14} className="rotate-180" />
           <span>Go to Customer App</span>
         </button>
-      </header>
+      </motion.header>
 
       {/* Main Content Body */}
-      <main className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto max-w-7xl w-full mx-auto relative z-20">
+      <motion.main 
+        variants={mainVariants}
+        className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto max-w-7xl w-full mx-auto relative z-20"
+      >
         
         {/* Metric Cards: Warm Ivory, Slate Text, Gold Linings */}
         <motion.section 
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.08
-              }
-            }
-          }}
+          variants={metricsSectionVariants}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 select-none shrink-0"
         >
           <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 15, scale: 0.96 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
-            }}
-            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            variants={metricCardVariants}
+            whileHover={{ y: -4, borderColor: "rgba(200, 157, 94, 0.4)", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
             className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
           >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-emerald-500/5 to-transparent pointer-events-none" />
@@ -607,11 +717,8 @@ export default function OwnerApp() {
           </motion.div>
 
           <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 15, scale: 0.96 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
-            }}
-            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            variants={metricCardVariants}
+            whileHover={{ y: -4, borderColor: "rgba(200, 157, 94, 0.4)", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
             className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
           >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-amber-500/5 to-transparent pointer-events-none" />
@@ -628,11 +735,8 @@ export default function OwnerApp() {
           </motion.div>
 
           <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 15, scale: 0.96 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
-            }}
-            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            variants={metricCardVariants}
+            whileHover={{ y: -4, borderColor: "rgba(200, 157, 94, 0.4)", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
             className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
           >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-blue-500/5 to-transparent pointer-events-none" />
@@ -654,11 +758,8 @@ export default function OwnerApp() {
           </motion.div>
 
           <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 15, scale: 0.96 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
-            }}
-            whileHover={{ y: -4, borderColor: "#C89D5E/50", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
+            variants={metricCardVariants}
+            whileHover={{ y: -4, borderColor: "rgba(200, 157, 94, 0.4)", boxShadow: "0 8px 30px rgba(44,35,33,0.05)" }}
             className="bg-white rounded-3xl border border-[#E8DCC4] p-5 shadow-[0_6px_25px_rgba(44,35,33,0.03)] flex flex-col gap-1.5 relative overflow-hidden group transition-colors duration-300"
           >
             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-indigo-500/5 to-transparent pointer-events-none" />
@@ -678,10 +779,10 @@ export default function OwnerApp() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeDashboardTab}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ type: "spring", stiffness: 120, damping: 18 }}
             className="flex-1 flex flex-col gap-6"
           >
             {/* TAB 1: DARBAR COMMAND CONSOLE */}
@@ -1667,7 +1768,8 @@ export default function OwnerApp() {
             Pricing edits, stock availability, order progression, and chef replies made in this console will instantly reflect on any active customer devices browsing the Maharaja restaurant app.
           </p>
         </footer>
-      </main>
-    </div>
-  );
+      </motion.main>
+    </motion.div>
+  </div>
+);
 }

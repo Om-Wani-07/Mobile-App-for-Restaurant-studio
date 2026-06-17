@@ -11,7 +11,7 @@ export const initialRestaurants: Restaurant[] = [
     deliveryTime: "30-40 mins",
     costForTwo: "₹1,200 for two",
     address: "Block C, Connaught Place, New Delhi",
-    imageUrl: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800"
+    imageUrl: "/images/the-saffron-taj.jpeg"
   },
   {
     id: 2,

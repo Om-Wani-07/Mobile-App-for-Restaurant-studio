@@ -30,12 +30,7 @@ export default function CustomerApp() {
       const initial = initialRestaurants.find(init => init.id === r.id);
       if (initial) {
         r.cuisine = initial.cuisine;
-      }
-      if (r.id === 1 && (r.imageUrl.includes("photo-1585938338996-26aa3149fc9a") || !r.imageUrl)) {
-        return {
-          ...r,
-          imageUrl: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800"
-        };
+        r.imageUrl = initial.imageUrl;
       }
       return r;
     });

@@ -72,10 +72,18 @@ export default function OwnerApp() {
     };
   }, []);
 
-  // --- Persistent Local Database State ---
   const [restaurants, setRestaurants] = useState<Restaurant[]>(() => {
     const saved = localStorage.getItem("rsl_restaurants");
-    return saved ? JSON.parse(saved) : initialRestaurants;
+    let loaded = saved ? JSON.parse(saved) : initialRestaurants;
+    loaded = loaded.map((r: Restaurant) => {
+      const initial = initialRestaurants.find(init => init.id === r.id);
+      if (initial) {
+        r.cuisine = initial.cuisine;
+        r.imageUrl = initial.imageUrl;
+      }
+      return r;
+    });
+    return loaded;
   });
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>(() => {

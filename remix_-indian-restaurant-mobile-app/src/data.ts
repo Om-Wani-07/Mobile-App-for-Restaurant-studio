@@ -15,7 +15,7 @@ export const initialRestaurants: Restaurant[] = [
   },
   {
     id: 2,
-    name: "Dakshin Palace",
+    name: "The Curry Leaf | Pure South Indian Dining",
     cuisine: "South Indian • Chettinad • Coastal Gold • Desserts",
     tagline: "The Magic of Curry Leaves, Mustard Seeds & Coconut",
     rating: 4.7,
@@ -23,7 +23,7 @@ export const initialRestaurants: Restaurant[] = [
     deliveryTime: "25-35 mins",
     costForTwo: "₹800 for two",
     address: "Indiranagar, 100 Feet Road, Bengaluru",
-    imageUrl: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=800"
+    imageUrl: "/images/the-curry-leaf.jpeg"
   },
   {
     id: 3,

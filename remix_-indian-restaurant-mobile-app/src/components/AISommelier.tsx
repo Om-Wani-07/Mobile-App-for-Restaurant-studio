@@ -350,8 +350,8 @@ function getLocalSommelierResponse(userText: string): string {
   }
 
   // 4. South Indian / Coastal / Coconut / Bengaluru / Dosa
-  if (query.includes("south") || query.includes("coastal") || query.includes("coconut") || query.includes("dosa") || query.includes("dakshin")) {
-    return `Namaste and Vanakkam! 🥥\n\nWelcome to the coastal paradise of Dakshin Palace. Let us embark on a journey of curry leaves, mustard seeds, and fresh coconut:\n\n` +
+  if (query.includes("south") || query.includes("coastal") || query.includes("coconut") || query.includes("dosa") || query.includes("curry leaf") || query.includes("dakshin")) {
+    return `Namaste and Vanakkam! 🥥\n\nWelcome to the coastal paradise of The Curry Leaf | Pure South Indian Dining. Let us embark on a journey of curry leaves, mustard seeds, and fresh coconut:\n\n` +
       `✦ **Starter:** *Ghee Roast Masala Dosa (₹180)* - crispy golden fermented rice crepe smeared with aromatic pure cow ghee and stuffed with spiced potato masala.\n` +
       `✦ **Mains:** *Coastal Malabar Prawn Curry (₹520)* - fresh juicy prawns simmered in an aromatic kokum and coconut milk gravy, paired with flaky *Malabar Parotta*.\n` +
       `✦ **Dessert:** *Chilled Elaneer Payasam (₹165)* - tender coconut pulp and milk sweetened with golden jaggery.\n\n` +
@@ -377,5 +377,5 @@ function getLocalSommelierResponse(userText: string): string {
   }
 
   // 7. General Default / Fallback Response
-  return `Namaste and Aadab, Dear Patron! 🌟\n\nI am **Chef Arjan**, your Royal Sommelier. I am delighted to guide you through our legendary kitchens. \n\nTell me: what kind of culinary experience would you prefer today?\n- A rich, creamy vegetarian feast from *The Saffron Taj*\n- A zesty, coconut-infused coastal trip from *Dakshin Palace*\n- Or perhaps a fiery, robust Punjabi main course from *Royal Punjab*\n\nTell me your preferences (spicy, mild, vegetarian, sweet, or family style) and I shall construct a beautiful feast for you!`;
+  return `Namaste and Aadab, Dear Patron! 🌟\n\nI am **Chef Arjan**, your Royal Sommelier. I am delighted to guide you through our legendary kitchens. \n\nTell me: what kind of culinary experience would you prefer today?\n- A rich, creamy vegetarian feast from *The Saffron Taj*\n- A zesty, coconut-infused coastal trip from *The Curry Leaf | Pure South Indian Dining*\n- Or perhaps a fiery, robust Punjabi main course from *Royal Punjab*\n\nTell me your preferences (spicy, mild, vegetarian, sweet, or family style) and I shall construct a beautiful feast for you!`;
 }

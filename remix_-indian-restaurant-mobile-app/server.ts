@@ -55,8 +55,8 @@ async function startServer() {
     }
 
     // 4. South Indian / Coastal / Coconut / Bengaluru / Dosa
-    if (query.includes("south") || query.includes("coastal") || query.includes("coconut") || query.includes("dosa") || query.includes("dakshin")) {
-      return `Namaste and Vanakkam! 🥥\n\nWelcome to the coastal paradise of Dakshin Palace. Let us embark on a journey of curry leaves, mustard seeds, and fresh coconut:\n\n` +
+    if (query.includes("south") || query.includes("coastal") || query.includes("coconut") || query.includes("dosa") || query.includes("curry leaf") || query.includes("dakshin")) {
+      return `Namaste and Vanakkam! 🥥\n\nWelcome to the coastal paradise of The Curry Leaf | Pure South Indian Dining. Let us embark on a journey of curry leaves, mustard seeds, and fresh coconut:\n\n` +
         `✦ **Starter:** *Ghee Roast Masala Dosa (₹180)* - crispy golden fermented rice crepe smeared with aromatic pure cow ghee and stuffed with spiced potato masala.\n` +
         `✦ **Mains:** *Coastal Malabar Prawn Curry (₹520)* - fresh juicy prawns simmered in an aromatic kokum and coconut milk gravy, paired with flaky *Malabar Parotta*.\n` +
         `✦ **Dessert:** *Chilled Elaneer Payasam (₹165)* - tender coconut pulp and milk sweetened with golden jaggery.\n\n` +
@@ -82,7 +82,7 @@ async function startServer() {
     }
 
     // 7. General Default / Fallback Response
-    return `Namaste and Aadab, Dear Patron! 🌟\n\nI am **Chef Arjan**, your Royal Sommelier. I am delighted to guide you through our legendary kitchens. \n\nTell me: what kind of culinary experience would you prefer today?\n- A rich, creamy vegetarian feast from *The Saffron Taj*\n- A zesty, coconut-infused coastal trip from *Dakshin Palace*\n- Or perhaps a fiery, robust Punjabi main course from *Royal Punjab*\n\nTell me your preferences (spicy, mild, vegetarian, sweet, or family style) and I shall construct a beautiful feast for you!`;
+    return `Namaste and Aadab, Dear Patron! 🌟\n\nI am **Chef Arjan**, your Royal Sommelier. I am delighted to guide you through our legendary kitchens. \n\nTell me: what kind of culinary experience would you prefer today?\n- A rich, creamy vegetarian feast from *The Saffron Taj*\n- A zesty, coconut-infused coastal trip from *The Curry Leaf | Pure South Indian Dining*\n- Or perhaps a fiery, robust Punjabi main course from *Royal Punjab*\n\nTell me your preferences (spicy, mild, vegetarian, sweet, or family style) and I shall construct a beautiful feast for you!`;
   }
 
   // --- API Endpoint: AI Saffron Sommelier ---
@@ -98,7 +98,7 @@ async function startServer() {
       // Base system instruction defining Chef Arjan's context
       const systemInstruction = `You are Chef Arjan, the "Royal Saffron Sommelier" at our premium Indian dining app which connects customers to three legendary kitchens:
 1. "The Saffron Taj" (Connaught Place, New Delhi): Royal Mughlai & luxury clay oven dishes (Tandoori Paneer Tikka, Shahi Paneer, Grand Royal Butter Chicken, Imperial Dal Bukhara, Nawabi Murgh Dum Biryani, Garlic Naan). Rich, luxurious cashews, saffron, cream.
-2. "Dakshin Palace" (Indiranagar, Bengaluru): South Indian coastal gold (Ghee Roast Masala Dosa, Chettinad Pepper Chicken, Coastal Malabar Prawn Curry, Malabar Parotta). Fragrant curry leaves, coconut, mustard seeds.
+2. "The Curry Leaf | Pure South Indian Dining" (Indiranagar, Bengaluru): South Indian coastal gold (Ghee Roast Masala Dosa, Chettinad Pepper Chicken, Coastal Malabar Prawn Curry, Malabar Parotta). Fragrant curry leaves, coconut, mustard seeds.
 3. "Royal Punjab" (Juhu, Mumbai): Robust Punjabi Dhaba cooking (Kadhai Paneer, Sarson Ka Saag & Makki Roti, Amritsari Spicy Butter Chicken, Mutton Dum Biryani, Amritsari Stuffed potato Kulcha, Moong Dal Halwa). Fiery spices, pure ghee, rustic clay pot depths.
 
 Your role:

@@ -475,14 +475,14 @@ export default function DiscoverScreen({
                 className="bg-white rounded-3xl border border-gray-100 shadow-xs group cursor-pointer overflow-hidden hover:shadow-md transition-all flex flex-col hover:border-amber-100/60"
               >
                 {/* Image Section */}
-                <div className="h-32 w-full relative overflow-hidden bg-slate-200">
+                <div className="h-48 w-full relative overflow-hidden bg-slate-200">
                   <img 
                     src={rest.imageUrl} 
                     alt={rest.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-3.5">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
                     <span className="text-white text-base font-display font-extrabold tracking-tight leading-tight">
                       {rest.name}
                     </span>
@@ -503,21 +503,23 @@ export default function DiscoverScreen({
                 </div>
 
                 {/* Info Bar */}
-                <div className="p-3.5 flex flex-col gap-1 text-xs">
+                <div className="p-4 flex flex-col gap-1.5 text-xs">
                   <p className="text-[11px] font-semibold text-gray-600 italic">
                     &ldquo;{rest.tagline}&rdquo;
                   </p>
                   
-                  <div className="flex justify-between items-center mt-2.5 pt-2.5 border-t border-gray-50 text-[10px] text-gray-500 font-bold">
-                    <div className="flex items-center gap-1">
-                      <Clock size={11} className="text-slate-400" />
-                      <span>{rest.deliveryTime}</span>
+                  <div className="flex flex-col gap-2 mt-2 pt-2.5 border-t border-gray-50 text-[10px] text-gray-500 font-bold">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-1">
+                        <Clock size={11} className="text-slate-400" />
+                        <span>{rest.deliveryTime}</span>
+                      </div>
+                      <span className="text-amber-700 font-mono">{rest.costForTwo}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <MapPin size={11} className="text-slate-400 line-clamp-1" />
-                      <span>{rest.address.split(",").slice(-2).join(",").trim()}</span>
+                      <MapPin size={11} className="text-slate-400 shrink-0" />
+                      <span className="truncate">{rest.address.split(",").slice(-2).join(",").trim()}</span>
                     </div>
-                    <span className="text-amber-700 font-mono">{rest.costForTwo}</span>
                   </div>
                 </div>
               </div>

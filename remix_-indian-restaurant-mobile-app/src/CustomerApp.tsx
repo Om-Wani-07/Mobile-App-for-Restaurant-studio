@@ -29,6 +29,7 @@ export default function CustomerApp() {
     loaded = loaded.map((r: Restaurant) => {
       const initial = initialRestaurants.find(init => init.id === r.id);
       if (initial) {
+        r.name = initial.name;
         r.cuisine = initial.cuisine;
         r.imageUrl = initial.imageUrl;
       }
@@ -344,7 +345,7 @@ export default function CustomerApp() {
                 userLoyalty={userLoyalty}
                 rewardsList={loyaltyRewards}
                 selectedReward={selectedReward}
-                onSelectReward={handleSelectReward}
+                onSelectReward={(reward) => handleSelectReward(reward, userLoyalty.pointsBalance)}
               />
             );
           case "OrdersList":

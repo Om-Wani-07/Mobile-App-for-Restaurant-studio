@@ -78,6 +78,7 @@ export default function OwnerApp() {
     loaded = loaded.map((r: Restaurant) => {
       const initial = initialRestaurants.find(init => init.id === r.id);
       if (initial) {
+        r.name = initial.name;
         r.cuisine = initial.cuisine;
         r.imageUrl = initial.imageUrl;
       }

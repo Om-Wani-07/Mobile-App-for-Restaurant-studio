@@ -27,7 +27,7 @@ export const initialRestaurants: Restaurant[] = [
   },
   {
     id: 3,
-    name: "Clay Oven Punjabi",
+    name: "Royal Punjab",
     cuisine: "Punjabi Dhaba • Clay Oven • Spicy • Desserts",
     tagline: "Rich, Robust, and Full of Love from Amritsar",
     rating: 4.6,
@@ -35,7 +35,7 @@ export const initialRestaurants: Restaurant[] = [
     deliveryTime: "35-45 mins",
     costForTwo: "₹700 for two",
     address: "Juhu Tara Road, Juhu, Mumbai",
-    imageUrl: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=800"
+    imageUrl: "/images/royal-punjab.jpeg"
   }
 ];
 

@@ -377,5 +377,5 @@ function getLocalSommelierResponse(userText: string): string {
   }
 
   // 7. General Default / Fallback Response
-  return `Namaste and Aadab, Dear Patron! 🌟\n\nI am **Chef Arjan**, your Royal Sommelier. I am delighted to guide you through our legendary kitchens. \n\nTell me: what kind of culinary experience would you prefer today?\n- A rich, creamy vegetarian feast from *The Saffron Taj*\n- A zesty, coconut-infused coastal trip from *Dakshin Palace*\n- Or perhaps a fiery, robust Punjabi main course from *Clay Oven Punjabi*\n\nTell me your preferences (spicy, mild, vegetarian, sweet, or family style) and I shall construct a beautiful feast for you!`;
+  return `Namaste and Aadab, Dear Patron! 🌟\n\nI am **Chef Arjan**, your Royal Sommelier. I am delighted to guide you through our legendary kitchens. \n\nTell me: what kind of culinary experience would you prefer today?\n- A rich, creamy vegetarian feast from *The Saffron Taj*\n- A zesty, coconut-infused coastal trip from *Dakshin Palace*\n- Or perhaps a fiery, robust Punjabi main course from *Royal Punjab*\n\nTell me your preferences (spicy, mild, vegetarian, sweet, or family style) and I shall construct a beautiful feast for you!`;
 }

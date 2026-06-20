@@ -483,8 +483,15 @@ export default function DiscoverScreen({
                     className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
-                    <span className="text-white text-base font-display font-extrabold tracking-tight leading-tight">
-                      {rest.name}
+                    <span className="text-white text-base font-display font-extrabold tracking-tight leading-tight flex flex-col">
+                      {rest.name.includes(" | ") ? (
+                        <>
+                          <span>{rest.name.split(" | ")[0]}</span>
+                          <span className="text-xs text-white/90 font-semibold mt-0.5">{rest.name.split(" | ")[1]}</span>
+                        </>
+                      ) : (
+                        rest.name
+                      )}
                     </span>
                     <span className="text-[10px] text-amber-200/90 font-medium">
                       {rest.cuisine}
